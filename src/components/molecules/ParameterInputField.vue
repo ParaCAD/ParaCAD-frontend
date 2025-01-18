@@ -1,11 +1,11 @@
 <template>
     <div>
         <div v-if="parameterType === 'int'">
-            <ParameterInputInt :parameter="parameter" />
+            <ParameterInputInt ref="int" :parameter="parameter" />
         </div>
 
         <div v-else-if="parameterType === 'string'">
-            <ParameterInputString :parameter="parameter" />
+            <ParameterInputString ref="string" :parameter="parameter" />
         </div>
     </div>
 </template>
@@ -95,6 +95,12 @@ export default defineComponent({
                             minLen, maxLen);
                 }
             })
+        }
+    },
+    methods: {
+        getValue(): string {
+            const field = this.$refs[this.parameterType] as typeof ParameterInputString | typeof ParameterInputInt;
+            return field.getValue();
         }
     },
     components: { ParameterInputInt, ParameterInputString }

@@ -1,13 +1,13 @@
 <template>
     <div>
         {{ parameter.displayName }}
-        <input type="number" :name="parameter.name" :min="parameter.min" :max="parameter.max" step="1"
+        <input ref="field" type="number" :name="parameter.name" :min="parameter.min" :max="parameter.max" step="1"
             :value="parameter.default" />
     </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue';
+import { useTemplateRef, defineComponent } from 'vue';
 
 export class ParameterWithValidationInt {
     name: string;
@@ -36,6 +36,19 @@ export default defineComponent({
     setup(props) {
         return {
             parameter: props.parameter
+        }
+    },
+    methods: {
+        getValue(): string {
+            const field = this.$refs['field'] as HTMLInputElement;
+            var value = parseInt(field.value);
+            if (value < this.parameter.min) {
+                field.value = this.parameter.min.toString();
+            }
+            if (value > this.parameter.max) {
+                field.value = this.parameter.max.toString();
+            }
+            return field.value;
         }
     }
 });
