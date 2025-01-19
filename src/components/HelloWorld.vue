@@ -6,12 +6,14 @@
     <ParameterInputField ref="i2" :parameterInput="input2" />
     <button @click="debugClick">Debug</button>
   </div>
+  <TemplatePage />
 </template>
 
 <script lang="ts">
 import { defineComponent } from 'vue';
 import ParameterInputField from './molecules/ParameterInputField.vue';
 import { ConstraintType } from './molecules/ParameterInputField.vue';
+import TemplatePage from './pages/TemplatePage.vue';
 
 export default defineComponent({
   name: "HelloWorld",
@@ -52,7 +54,7 @@ export default defineComponent({
       console.log(input2.getValue() + " " + input1.getValue());
     }
   },
-  components: { ParameterInputField }
+  components: { ParameterInputField, TemplatePage }
 });
 </script>
 

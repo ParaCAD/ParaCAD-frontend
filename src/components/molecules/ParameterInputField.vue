@@ -24,20 +24,12 @@ enum ParameterType {
     Bool = 'bool'
 }
 
-class ParameterWithValidation {
-    name: string;
-    displayName: string;
-    type: string;
-    default: number | string | boolean;
-    constraints: Constraint[];
-
-    constructor(name: string, displayName: string, type: string, defaultValue: number | string | boolean, constraints: Constraint[]) {
-        this.name = name;
-        this.displayName = displayName;
-        this.type = type;
-        this.default = defaultValue;
-        this.constraints = constraints;
-    }
+export interface ParameterWithValidation {
+    parameter_name: string;
+    parameter_display_name: string;
+    parameter_type: string;
+    parameter_default_value: number | string | boolean;
+    parameter_constraints: Constraint[];
 }
 
 export enum ConstraintType {
@@ -48,14 +40,9 @@ export enum ConstraintType {
     MaxLength = "max_length"
 }
 
-class Constraint {
+interface Constraint {
     type: ConstraintType;
     value: number;
-
-    constructor(type: ConstraintType, value: number) {
-        this.type = type;
-        this.value = value;
-    }
 }
 
 
@@ -69,29 +56,29 @@ export default defineComponent({
     },
     setup(props) {
         return {
-            parameterType: props.parameterInput.type,
+            parameterType: props.parameterInput.parameter_type,
             parameterInput: props.parameterInput,
             parameter: computed(() => {
-                switch (props.parameterInput.type) {
+                switch (props.parameterInput.parameter_type) {
                     case ParameterType.Int:
-                        let minVal = props.parameterInput.constraints.find((x:Constraint) =>x.type===ConstraintType.MinValue)?.value;
-                        let maxVal = props.parameterInput.constraints.find((x:Constraint) =>x.type===ConstraintType.MaxValue)?.value;
+                        let minVal = props.parameterInput.parameter_constraints.find((x:Constraint) =>x.type===ConstraintType.MinValue)?.value;
+                        let maxVal = props.parameterInput.parameter_constraints.find((x:Constraint) =>x.type===ConstraintType.MaxValue)?.value;
                         if (minVal === undefined || maxVal === undefined) {
                             throw new Error('Min and max values must be defined for integer parameters');
                         }
-                        return new ParameterWithValidationInt(props.parameterInput.name, 
-                            props.parameterInput.displayName, 
-                            props.parameterInput.default as number, 
+                        return new ParameterWithValidationInt(props.parameterInput.parameter_name, 
+                            props.parameterInput.parameter_display_name, 
+                            props.parameterInput.parameter_default_value as number, 
                             minVal, maxVal);
                     case ParameterType.String:
-                        let minLen = props.parameterInput.constraints.find((x:Constraint) =>x.type===ConstraintType.MinLength)?.value;
-                        let maxLen = props.parameterInput.constraints.find((x:Constraint) =>x.type===ConstraintType.MaxLength)?.value;
+                        let minLen = props.parameterInput.parameter_constraints.find((x:Constraint) =>x.type===ConstraintType.MinLength)?.value;
+                        let maxLen = props.parameterInput.parameter_constraints.find((x:Constraint) =>x.type===ConstraintType.MaxLength)?.value;
                         if (minLen === undefined || maxLen === undefined) {
                             throw new Error('MinLen and maxLen values must be defined for string parameters');
                         }
-                        return new ParameterWithValidationString(props.parameterInput.name, 
-                            props.parameterInput.displayName, 
-                            props.parameterInput.default as number, 
+                        return new ParameterWithValidationString(props.parameterInput.parameter_name, 
+                            props.parameterInput.parameter_display_name, 
+                            props.parameterInput.parameter_default_value as number, 
                             minLen, maxLen);
                 }
             })
