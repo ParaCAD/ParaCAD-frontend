@@ -5,7 +5,7 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import {defineComponent, reactive} from 'vue';
 import ParameterInputField from '../molecules/ParameterInputField.vue';
 import {ParameterWithValidation} from '../molecules/ParameterInputField.vue';
@@ -18,7 +18,7 @@ export default defineComponent({
       required: true
     },
     parameters: {
-      type: Array as () => ParameterWithValidation[],
+      type: Array,
       required: true
     }
   },

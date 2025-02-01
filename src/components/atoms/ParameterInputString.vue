@@ -6,24 +6,24 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import {defineComponent} from 'vue';
 
-export class ParameterWithValidationString {
-  name: string;
-  displayName: string;
-  default: number;
-  minLen: number;
-  maxLen: number;
-
-  constructor(name: string, displayName: string, defaultValue: number, minLen: number, maxLen: number) {
-    this.name = name;
-    this.displayName = displayName;
-    this.default = defaultValue;
-    this.minLen = minLen;
-    this.maxLen = maxLen;
-  }
-}
+// export class ParameterWithValidationString {
+//   name: string;
+//   displayName: string;
+//   default: string;
+//   minLen: number;
+//   maxLen: number;
+//
+//   constructor(name: string, displayName: string, defaultValue: string, minLen: number, maxLen: number) {
+//     this.name = name;
+//     this.displayName = displayName;
+//     this.default = defaultValue;
+//     this.minLen = minLen;
+//     this.maxLen = maxLen;
+//   }
+// }
 
 export default defineComponent({
   name: 'ParameterInputInt',
@@ -33,22 +33,11 @@ export default defineComponent({
       required: true
     },
     parameter: {
-      type: Object as () => ParameterWithValidationString,
+      type: Object,
       required: true
     }
   },
   methods: {
-    getValue(): string {
-      const field = this.$refs['field'] as HTMLInputElement;
-      var value = field.value;
-      if (value.length < this.parameter.minLen) {
-        field.value = field.value + "A".repeat(this.parameter.minLen - value.length);
-      }
-      if (value.length > this.parameter.maxLen) {
-        field.value = field.value.substring(0, this.parameter.maxLen);
-      }
-      return field.value;
-    }
   }
 });
 </script>

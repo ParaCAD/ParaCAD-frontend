@@ -2,47 +2,46 @@
   <div>
     {{ parameter.displayName }}
     <input ref="field" type="number" :name="parameter.name" :min="parameter.min" :max="parameter.max" step="1"
-           v-model="modelValue" @input="updateValue"/>
+           v-model="value" @change="onUpdate"/>
   </div>
 </template>
 
-<script lang="ts">
-import {useTemplateRef, defineComponent} from 'vue';
+<script>
+import {defineComponent} from 'vue';
 
-export class ParameterWithValidationInt {
-  name: string;
-  displayName: string;
-  default: number;
-  min: number;
-  max: number;
-
-  constructor(name: string, displayName: string, defaultValue: number, min: number, max: number) {
-    this.name = name;
-    this.displayName = displayName;
-    this.default = defaultValue;
-    this.min = min;
-    this.max = max;
-  }
-}
+// export class ParameterWithValidationInt {
+//   name: string;
+//   displayName: string;
+//   default: number;
+//   min: number;
+//   max: number;
+//
+//   constructor(name: string, displayName: string, defaultValue: number, min: number, max: number) {
+//     this.name = name;
+//     this.displayName = displayName;
+//     this.default = defaultValue;
+//     this.min = min;
+//     this.max = max;
+//   }
+// }
 
 export default defineComponent({
   name: 'ParameterInputInt',
   props: {
-    modelValue: {
-      type: Number,
-      required: true
-    },
     parameter: {
-      type: Object as () => ParameterWithValidationInt,
+      type: Object,
       required: true
     }
   },
-  methods: {
-    updateValue(event: Event) {
-      if (event.target instanceof HTMLInputElement) {
-        this.$emit("update:modelValue", event.target.value);
-      }
+  data(){
+    return {
+      value: this.parameter.default,
     }
+  },
+  methods: {
+    onUpdate() {
+      this.emitter.emit(this.parameter.name, this.value);
+    },
   }
 });
 </script>

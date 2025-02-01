@@ -1,7 +1,7 @@
 import {createRouter, createWebHistory, RouteRecordRaw} from 'vue-router'
 import TemplatePage from "@/components/pages/TemplatePage.vue";
 
-const routes: Array<RouteRecordRaw> = [
+const routes = [
     {
         path: '/',
         name: 'templatePage',

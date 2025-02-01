@@ -10,41 +10,27 @@
   </div>
 </template>
 
-<script lang="ts">
+<script>
 import {computed, defineComponent} from 'vue';
 import ParameterInputInt from '../atoms/ParameterInputInt.vue';
 import {ParameterWithValidationInt} from '../atoms/ParameterInputInt.vue';
 import ParameterInputString from '../atoms/ParameterInputString.vue';
 import {ParameterWithValidationString} from '../atoms/ParameterInputString.vue';
 
-enum ParameterType {
-  Int = 'int',
-  Float = 'float',
-  String = 'string',
-  Bool = 'bool'
+const ParameterType = {
+  Int: 'int',
+  Float: 'float',
+  String: 'string',
+  Bool: 'bool'
 }
 
-export interface ParameterWithValidation {
-  parameter_name: string;
-  parameter_display_name: string;
-  parameter_type: string;
-  parameter_default_value: number | string | boolean;
-  parameter_constraints: Constraint[];
+const ConstraintType = {
+  MinValue: "min_value",
+  MaxValue: "max_value",
+  Step: "step",
+  MinLength: "min_length",
+  MaxLength: "max_length"
 }
-
-export enum ConstraintType {
-  MinValue = "min_value",
-  MaxValue = "max_value",
-  Step = "step",
-  MinLength = "min_length",
-  MaxLength = "max_length"
-}
-
-interface Constraint {
-  type: ConstraintType;
-  value: number;
-}
-
 
 export default defineComponent({
   name: 'ParameterInputField',
@@ -54,7 +40,7 @@ export default defineComponent({
       required: true
     },
     parameterInput: {
-      type: Object as () => ParameterWithValidation,
+      type: Object,
       required: true
     }
   },
@@ -66,35 +52,36 @@ export default defineComponent({
       parameter: computed(() => {
         switch (props.parameterInput.parameter_type) {
           case ParameterType.Int:
-            let minVal = props.parameterInput.parameter_constraints.find((x: Constraint) => x.type === ConstraintType.MinValue)?.value;
-            let maxVal = props.parameterInput.parameter_constraints.find((x: Constraint) => x.type === ConstraintType.MaxValue)?.value;
+            let minVal = props.parameterInput.parameter_constraints.find((x) => x.type === ConstraintType.MinValue)?.value;
+            let maxVal = props.parameterInput.parameter_constraints.find((x) => x.type === ConstraintType.MaxValue)?.value;
             if (minVal === undefined || maxVal === undefined) {
               throw new Error('Min and max values must be defined for integer parameters');
             }
-            return new ParameterWithValidationInt(props.parameterInput.parameter_name,
-                props.parameterInput.parameter_display_name,
-                props.parameterInput.parameter_default_value as number,
-                minVal, maxVal);
+            return {
+              name: props.parameterInput.parameter_name,
+              displayName: props.parameterInput.parameter_display_name,
+              default: props.parameterInput.parameter_default_value,
+              min: minVal,
+              max: maxVal
+            };
           case ParameterType.String:
-            let minLen = props.parameterInput.parameter_constraints.find((x: Constraint) => x.type === ConstraintType.MinLength)?.value;
-            let maxLen = props.parameterInput.parameter_constraints.find((x: Constraint) => x.type === ConstraintType.MaxLength)?.value;
+            let minLen = props.parameterInput.parameter_constraints.find((x) => x.type === ConstraintType.MinLength)?.value;
+            let maxLen = props.parameterInput.parameter_constraints.find((x) => x.type === ConstraintType.MaxLength)?.value;
             if (minLen === undefined || maxLen === undefined) {
               throw new Error('MinLen and maxLen values must be defined for string parameters');
             }
-            return new ParameterWithValidationString(props.parameterInput.parameter_name,
-                props.parameterInput.parameter_display_name,
-                props.parameterInput.parameter_default_value as number,
-                minLen, maxLen);
+            return {
+              name: props.parameterInput.parameter_name,
+              displayName: props.parameterInput.parameter_display_name,
+              default: props.parameterInput.parameter_default_value,
+              minLen: minLen,
+              maxLen: maxLen
+            };
         }
       })
     }
   },
-  methods: {
-    getValue(): string {
-      const field = this.$refs[this.parameterType] as typeof ParameterInputString | typeof ParameterInputInt;
-      return field.getValue();
-    }
-  },
+  methods: {},
   components: {ParameterInputInt, ParameterInputString}
 });
 </script>

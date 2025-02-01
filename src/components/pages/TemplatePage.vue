@@ -7,22 +7,21 @@
   <button @click="debugClick">Debug</button>
 </template>
 
-<script lang="ts">
+<script>
 import {defineComponent, reactive, ref} from 'vue';
 import ModelForm from '@/components/organisms/ModelForm.vue';
 import ParameterWithValidation from '@/components/molecules/ParameterInputField.vue';
-import ParameterInputField from "@/components/molecules/ParameterInputField.vue";
 
-interface GetTemplateResponse {
-  template_uuid: string;
-  template_name: string;
-  template_description: string;
-  template_preview: string;
-  template_parameters: typeof ParameterWithValidation[];
-
-  owner_uuid: string;
-  owner_name: string;
-}
+// interface GetTemplateResponse {
+//   template_uuid: string;
+//   template_name: string;
+//   template_description: string;
+//   template_preview: string;
+//   template_parameters: typeof ParameterWithValidation[];
+//
+//   owner_uuid: string;
+//   owner_name: string;
+// }
 
 
 export default defineComponent({
@@ -39,7 +38,7 @@ export default defineComponent({
         owner_uuid: '',
         owner_name: ''
       },
-      values: {} as { [index: string]: any },
+      values: {},
     };
   },
   setup(props) {
@@ -55,7 +54,7 @@ export default defineComponent({
         })
         .then(data => {
           this.template = data;
-          for (let parameter of this.template.template_parameters as typeof ParameterWithValidation[]) {
+          for (let parameter of this.template.template_parameters) {
             console.log("template page " + parameter.parameter_name);
             this.values[parameter.parameter_name] = parameter.parameter_default_value;
           }
