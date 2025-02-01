@@ -3,12 +3,14 @@
     <img alt="Vue logo" src="@/assets/logo.png">
   </div>
   {{ template.template_name }}
-  <ModelForm :parameters="template.template_parameters" v-model="values"/>
+  <ModelForm :parameters="template.template_parameters"/>
   <button @click="debugClick">Debug</button>
 </template>
 
 <script>
 import {defineComponent, reactive, ref} from 'vue';
+import axios from 'axios';
+import {saveAs} from 'file-saver';
 import ModelForm from '@/components/organisms/ModelForm.vue';
 import ParameterWithValidation from '@/components/molecules/ParameterInputField.vue';
 
@@ -45,30 +47,61 @@ export default defineComponent({
     return {};
   },
   created() {
-    fetch('http://localhost:8081/template/00000000-0000-0000-0000-000000000000')
+    axios.get('http://localhost:8081/template/00000000-0000-0000-0000-000000000000')
         .then(response => {
-          if (!response.ok) {
-            throw new Error('Network response was not ok');
-          }
-          return response.json();
-        })
-        .then(data => {
-          this.template = data;
+          this.template = response.data;
           for (let parameter of this.template.template_parameters) {
-            console.log("template page " + parameter.parameter_name);
             this.values[parameter.parameter_name] = parameter.parameter_default_value;
           }
-          console.log(this.template);
         })
+        .catch(error => {
+          console.error(error);
+        })
+  },
+  mounted() {
+    this.emitter.on('update:field', (data) => {
+      this.values[data.name] = data.value;
+    });
   },
   methods: {
     debugClick() {
-      let valString = ""
+      let request = {"parameters": []}
       for (let [key, value] of Object.entries(this.values)) {
-        valString += key + "=" + value + "; ";
+        request.parameters.push({
+          "parameter_name": key,
+          "parameter_value": value.toString()
+        })
       }
-      console.log(valString);
-    }
+
+      axios.post('http://localhost:8081/template/00000000-0000-0000-0000-000000000000/model', request)
+          .then(response => {
+            const decodedData = atob(response.data);
+            const uInt8Array = new Uint8Array(decodedData.length);
+            for (let i = 0; i < decodedData.length; ++i) {
+              uInt8Array[i] = decodedData.charCodeAt(i);
+            }
+            let blob = new Blob([uInt8Array], {type: "application/octet-stream"});
+            this.download(blob, "model.stl");
+          }).catch(error => {
+        console.error(error);
+      })
+    },
+    download(file, filename) {
+      if (window.navigator.msSaveOrOpenBlob) // IE10+
+        window.navigator.msSaveOrOpenBlob(file, filename);
+      else { // Others
+        var a = document.createElement("a"),
+            url = URL.createObjectURL(file);
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        setTimeout(function () {
+          document.body.removeChild(a);
+          window.URL.revokeObjectURL(url);
+        }, 0);
+      }
+    },
   },
   components: {ModelForm}
 });

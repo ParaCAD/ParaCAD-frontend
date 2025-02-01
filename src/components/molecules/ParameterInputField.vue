@@ -1,11 +1,11 @@
 <template>
   <div>
     <div v-if="parameterType === 'int'">
-      <ParameterInputInt ref="int" v-model="modelValue" :parameter="parameter"/>
+      <ParameterInputInt ref="int" :parameter="parameter"/>
     </div>
 
     <div v-else-if="parameterType === 'string'">
-      <ParameterInputString ref="string" v-model="modelValue" :parameter="parameter"/>
+      <ParameterInputString ref="string":parameter="parameter"/>
     </div>
   </div>
 </template>
@@ -13,9 +13,7 @@
 <script>
 import {computed, defineComponent} from 'vue';
 import ParameterInputInt from '../atoms/ParameterInputInt.vue';
-import {ParameterWithValidationInt} from '../atoms/ParameterInputInt.vue';
 import ParameterInputString from '../atoms/ParameterInputString.vue';
-import {ParameterWithValidationString} from '../atoms/ParameterInputString.vue';
 
 const ParameterType = {
   Int: 'int',
@@ -35,10 +33,6 @@ const ConstraintType = {
 export default defineComponent({
   name: 'ParameterInputField',
   props: {
-    modelValue: {
-      type: [Number, String, Boolean],
-      required: true
-    },
     parameterInput: {
       type: Object,
       required: true

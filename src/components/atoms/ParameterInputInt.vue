@@ -40,7 +40,7 @@ export default defineComponent({
   },
   methods: {
     onUpdate() {
-      this.emitter.emit(this.parameter.name, this.value);
+      this.emitter.emit("update:field", {name:this.parameter.name, value: this.value});
     },
   }
 });

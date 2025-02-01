@@ -2,7 +2,7 @@
   <div>
     {{ parameter.displayName }}
     <input ref="field" type="text" :name="parameter.name" :minlength="parameter.minLen" :maxlength="parameter.maxLen"
-           v-model="modelValue"/>
+           v-model="value" @change="onUpdate"/>
   </div>
 </template>
 
@@ -28,16 +28,20 @@ import {defineComponent} from 'vue';
 export default defineComponent({
   name: 'ParameterInputInt',
   props: {
-    modelValue: {
-      type: String,
-      required: true
-    },
     parameter: {
       type: Object,
       required: true
     }
   },
+  data(){
+    return {
+      value: this.parameter.default,
+    }
+  },
   methods: {
+    onUpdate() {
+      this.emitter.emit("update:field", {name:this.parameter.name, value: this.value});
+    },
   }
 });
 </script>
