@@ -5,7 +5,7 @@
     </div>
 
     <div v-else-if="parameterType === 'string'">
-      <ParameterInputString ref="string":parameter="parameter"/>
+      <ParameterInputString ref="string" :parameter="parameter"/>
     </div>
   </div>
 </template>
