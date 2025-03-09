@@ -1,30 +1,13 @@
 <template>
-  <div class="template-page-test">
-    <img alt="Vue logo" src="@/assets/logo.png">
-  </div>
   {{ template.template_name }}
   <ModelForm :parameters="template.template_parameters"/>
   <button @click="debugClick">Debug</button>
 </template>
 
 <script>
-import {defineComponent, reactive, ref} from 'vue';
+import {defineComponent} from 'vue';
 import axios from 'axios';
-import {saveAs} from 'file-saver';
 import ModelForm from '@/components/organisms/ModelForm.vue';
-import ParameterWithValidation from '@/components/molecules/ParameterInputField.vue';
-
-// interface GetTemplateResponse {
-//   template_uuid: string;
-//   template_name: string;
-//   template_description: string;
-//   template_preview: string;
-//   template_parameters: typeof ParameterWithValidation[];
-//
-//   owner_uuid: string;
-//   owner_name: string;
-// }
-
 
 export default defineComponent({
   name: "TemplatePage",
@@ -47,7 +30,18 @@ export default defineComponent({
     return {};
   },
   created() {
-    axios.get('http://localhost:8081/template/00000000-0000-0000-0000-000000000000')
+    const templateUUID = this.$route.params.templateUUID.trim()
+    console.log('TemplateUUID: ', templateUUID);
+    const uuidRegExp = new RegExp("[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}", "i")
+    console.log(uuidRegExp)
+    console.log('match: ', uuidRegExp.test(templateUUID));
+    if (!uuidRegExp.test(templateUUID)) {
+      this.$router.push({path:"/"})
+      alert("Nieprawidłowy UUID")
+      return;
+    }
+
+    axios.get('http://localhost:8081/template/'+templateUUID)
         .then(response => {
           this.template = response.data;
           for (let parameter of this.template.template_parameters) {
