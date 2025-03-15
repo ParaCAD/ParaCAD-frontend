@@ -1,9 +1,15 @@
 import {createRouter, createWebHistory, RouteRecordRaw} from 'vue-router'
 import TemplatePage from "@/components/pages/TemplatePage.vue";
+import MainPage from "@/components/pages/MainPage.vue";
 
 const routes = [
     {
         path: '/',
+        name: 'mainPage',
+        component: MainPage,
+    },
+    {
+        path: '/template/:templateUUID',
         name: 'templatePage',
         component: TemplatePage,
     },
