@@ -1,7 +1,13 @@
+<script setup>
+import {useI18n} from 'vue-i18n'
+
+const {t} = useI18n()
+</script>
+
 <template>
   <SearchResultRow v-if="!is_empty" v-for="template in templates" :template="template"/>
   <div v-if="is_empty">
-    Nic tu nie ma!
+    {{ t("search.results.empty") }}
   </div>
 </template>
 

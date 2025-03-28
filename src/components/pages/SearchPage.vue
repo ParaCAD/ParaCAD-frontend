@@ -4,7 +4,7 @@
 </template>
 
 <script>
-import {defineComponent, watch, watchEffect} from 'vue';
+import {defineComponent, watchEffect} from 'vue';
 import axios from 'axios';
 import SearchResults from '@/components/organisms/SearchResults.vue';
 import SearchParameters from "@/components/organisms/SearchParameters.vue";

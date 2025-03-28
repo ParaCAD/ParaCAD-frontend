@@ -1,6 +1,12 @@
+<script setup>
+import {useI18n} from 'vue-i18n'
+
+const {t} = useI18n()
+</script>
+
 <template>
   <div>
-    <a :href="templateURL">{{ template.name }}</a> by {{ template.owner_name }}
+    <a :href="templateURL">{{ template.name }}</a> {{ t("search.results.by_author") }} {{ template.owner_name }}
   </div>
 </template>
 

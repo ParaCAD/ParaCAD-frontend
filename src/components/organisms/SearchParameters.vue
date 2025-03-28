@@ -1,10 +1,16 @@
+<script setup>
+import {useI18n} from 'vue-i18n'
+
+const {t} = useI18n()
+</script>
+
 <template>
-  <input placeholder="Search..." type="text" v-model="query"/>
-  <input id="search_descriptions" type="checkbox" v-model="search_descriptions"/> <label for="search_descriptions">Search
-  descriptions</label>
+  <input :placeholder="t('search.parameters.query')" type="text" v-model="query"/>
+  <input id="search_descriptions" type="checkbox" v-model="search_descriptions"/> <label
+    for="search_descriptions">{{ t('search.parameters.search_description') }}</label>
   <select id="sorting" v-model="sorting">
-    <option value="newest">Newest</option>
-    <option value="oldest">Oldest</option>
+    <option value="newest">{{ t('search.parameters.sorting.newest') }}</option>
+    <option value="oldest">{{ t('search.parameters.sorting.oldest') }}</option>
   </select>
   <button id="search-button" @click="search"><i class="fa fa-search"></i>Search</button>
 </template>
