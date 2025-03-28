@@ -1,6 +1,12 @@
+<script setup>
+import {useI18n} from 'vue-i18n'
+
+const {t} = useI18n()
+</script>
+
 <template>
   <h1>ParaCAD</h1>
-  Welcome to ParaCAD!
+  {{ t("main.content") }}
 </template>
 
 <script>

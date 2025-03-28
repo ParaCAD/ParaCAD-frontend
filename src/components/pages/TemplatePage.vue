@@ -1,7 +1,13 @@
+<script setup>
+import {useI18n} from 'vue-i18n'
+
+const {t} = useI18n()
+</script>
+
 <template>
   {{ template.template_name }}
   <ModelForm :parameters="template.template_parameters"/>
-  <button @click="generate">Generate</button>
+  <button @click="generate">{{ t("template.generate_button") }}</button>
 </template>
 
 <script>
