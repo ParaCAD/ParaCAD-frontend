@@ -1,7 +1,7 @@
 <template>
   {{ template.template_name }}
   <ModelForm :parameters="template.template_parameters"/>
-  <button @click="debugClick">Debug</button>
+  <button @click="generate">Generate</button>
 </template>
 
 <script>
@@ -31,17 +31,14 @@ export default defineComponent({
   },
   created() {
     const templateUUID = this.$route.params.templateUUID.trim()
-    console.log('TemplateUUID: ', templateUUID);
     const uuidRegExp = new RegExp("[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}", "i")
-    console.log(uuidRegExp)
-    console.log('match: ', uuidRegExp.test(templateUUID));
     if (!uuidRegExp.test(templateUUID)) {
-      this.$router.push({path:"/"})
+      this.$router.push({path: "/"})
       alert("Nieprawidłowy UUID")
       return;
     }
 
-    axios.get('http://localhost:8081/template/'+templateUUID)
+    axios.get(BACKEND_URL + '/template/' + templateUUID)
         .then(response => {
           this.template = response.data;
           for (let parameter of this.template.template_parameters) {
@@ -58,7 +55,7 @@ export default defineComponent({
     });
   },
   methods: {
-    debugClick() {
+    generate() {
       let request = {"parameters": []}
       for (let [key, value] of Object.entries(this.values)) {
         request.parameters.push({
@@ -67,7 +64,7 @@ export default defineComponent({
         })
       }
 
-      axios.post('http://localhost:8081/template/00000000-0000-0000-0000-000000000000/model', request)
+      axios.post(BACKEND_URL + '/template/' + this.template.template_uuid + '/model', request)
           .then(response => {
             const decodedData = atob(response.data);
             const uInt8Array = new Uint8Array(decodedData.length);
@@ -75,7 +72,7 @@ export default defineComponent({
               uInt8Array[i] = decodedData.charCodeAt(i);
             }
             let blob = new Blob([uInt8Array], {type: "application/octet-stream"});
-            this.download(blob, "model.stl");
+            this.download(blob, this.template.template_name + ".stl");
           }).catch(error => {
         console.error(error);
       })

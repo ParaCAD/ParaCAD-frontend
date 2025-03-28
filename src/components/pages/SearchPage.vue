@@ -1,49 +1,46 @@
 <template>
-  <div>TODO: search bar</div>
+  <SearchParameters :search_params="search_params"></SearchParameters>
   <SearchResults :templates="templates"/>
 </template>
 
 <script>
-import {defineComponent} from 'vue';
+import {defineComponent, watch, watchEffect} from 'vue';
 import axios from 'axios';
 import SearchResults from '@/components/organisms/SearchResults.vue';
+import SearchParameters from "@/components/organisms/SearchParameters.vue";
+import "@/consts.js"
 
-const sorting_orders = ["newest", "oldest"]
+const sorting_orders = ["newest", "olsdest"]
 
 export default defineComponent({
   name: "SearchPage",
   props: {},
   data() {
     return {
-      templates: [{name: "aa"}, {name: "bb"}],
+      templates: [],
+      search_params: {}
     };
   },
   setup(props) {
     return {};
   },
   created() {
-    let search_params = this.getParams();
-    console.log(search_params);
-
-    axios.post('http://localhost:8081/search', search_params)
-        .then(response => {
-          this.templates = response.data.results;
-        })
-        .catch(error => {
-          console.error(error);
-        })
+    watchEffect(() => this.reloadSearch());
+    this.reloadSearch();
   },
   mounted() {
   },
   methods: {
     getParams() {
-      const template_name = this.$route.query.template_name
+      const query = this.$route.query.query
       let search_descriptions = Boolean(this.$route.query.search_description)
       if (search_descriptions !== true) {
         search_descriptions = false
       }
-      let sorting = this.$route.query.sort
-      if (!(sorting in sorting_orders)) {
+      let sorting = String(this.$route.query.sorting)
+      console.log(sorting)
+      console.log(sorting_orders)
+      if (!sorting_orders.includes(sorting)) {
         sorting = "newest"
       }
       let page_number = Number(this.$route.query.page_number)
@@ -52,18 +49,30 @@ export default defineComponent({
       }
       let page_size = Number(this.$route.query.page_size)
       if (isNaN(page_size)) {
-        page_size = 10
+        page_size = DEFAULT_PAGE_SIZE
       }
       return {
-        query: template_name,
+        query: query,
         search_descriptions: search_descriptions,
         sorting: sorting,
         page_number: page_number,
         page_size: page_size,
       }
     },
+    reloadSearch() {
+      this.search_params = this.getParams();
+      console.log(this.search_params);
+
+      axios.post(BACKEND_URL + '/search', this.search_params)
+          .then(response => {
+            this.templates = response.data.results;
+          })
+          .catch(error => {
+            console.error(error);
+          })
+    }
   },
-  components: {SearchResults}
+  components: {SearchParameters, SearchResults}
 });
 
 </script>

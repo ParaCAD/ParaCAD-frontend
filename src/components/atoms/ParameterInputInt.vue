@@ -9,22 +9,6 @@
 <script>
 import {defineComponent} from 'vue';
 
-// export class ParameterWithValidationInt {
-//   name: string;
-//   displayName: string;
-//   default: number;
-//   min: number;
-//   max: number;
-//
-//   constructor(name: string, displayName: string, defaultValue: number, min: number, max: number) {
-//     this.name = name;
-//     this.displayName = displayName;
-//     this.default = defaultValue;
-//     this.min = min;
-//     this.max = max;
-//   }
-// }
-
 export default defineComponent({
   name: 'ParameterInputInt',
   props: {
@@ -33,14 +17,14 @@ export default defineComponent({
       required: true
     }
   },
-  data(){
+  data() {
     return {
       value: this.parameter.default,
     }
   },
   methods: {
     onUpdate() {
-      this.emitter.emit("update:field", {name:this.parameter.name, value: this.value});
+      this.emitter.emit("update:field", {name: this.parameter.name, value: this.value});
     },
   }
 });
