@@ -6,7 +6,8 @@ const {t} = useI18n()
 
 <template>
   <div>
-    <a :href="templateURL">{{ template.name }}</a> {{ t("search.results.by_author") }} {{ template.owner_name }}
+    <a :href="templateURL">{{ template.name }}</a>
+    {{ t("search.results.by_author") }} {{ template.owner_name }} ({{ t("search.results.created") }} {{ template.created }})
   </div>
 </template>
 

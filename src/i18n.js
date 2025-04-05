@@ -29,6 +29,7 @@ const translations = {
             },
             results: {
                 by_author: "by",
+                created: "created",
                 empty: "Nothing here!",
             },
         },
@@ -61,6 +62,7 @@ const translations = {
             },
             results: {
                 by_author: "autorstwa",
+                created: "utworzony",
                 empty: "Nic tu nie ma!",
             },
         },

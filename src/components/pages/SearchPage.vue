@@ -10,7 +10,7 @@ import SearchResults from '@/components/organisms/SearchResults.vue';
 import SearchParameters from "@/components/organisms/SearchParameters.vue";
 import "@/consts.js"
 
-const sorting_orders = ["newest", "olsdest"]
+const sorting_orders = ["newest", "oldest"]
 
 export default defineComponent({
   name: "SearchPage",
