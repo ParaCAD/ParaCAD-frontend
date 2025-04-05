@@ -33,7 +33,7 @@ export default defineComponent({
   methods: {
     getParams() {
       const query = this.$route.query.query
-      let search_descriptions = Boolean(this.$route.query.search_description)
+      let search_descriptions = Boolean(this.$route.query.search_descriptions)
       if (search_descriptions !== true) {
         search_descriptions = false
       }
