@@ -5,6 +5,8 @@ const {t} = useI18n()
 </script>
 
 <template>
+  <img class="preview_image" :src="'http://localhost:8081/image/'+template.template_preview" alt="Generated model preview"/>
+  <br/>
   {{ template.template_name }}
   <ModelForm :parameters="template.template_parameters"/>
   <button @click="generate">{{ t("template.generate_button") }}</button>
@@ -104,3 +106,9 @@ export default defineComponent({
 });
 
 </script>
+
+<style>
+.preview_image {
+  width: 350px;
+}
+</style>
