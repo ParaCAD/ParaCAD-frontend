@@ -5,14 +5,28 @@ const {t} = useI18n()
 </script>
 
 <template>
-  <input :placeholder="t('search.parameters.query')" type="text" v-model="query"/>
-  <input id="search_descriptions" type="checkbox" v-model="search_descriptions"/> <label
-    for="search_descriptions">{{ t('search.parameters.search_description') }}</label>
-  <select id="sorting" v-model="sorting">
-    <option value="newest">{{ t('search.parameters.sorting.newest') }}</option>
-    <option value="oldest">{{ t('search.parameters.sorting.oldest') }}</option>
-  </select>
-  <button id="search-button" @click="search"><i class="fa fa-search"></i>Search</button>
+  <div class="container-sm text-center">
+    <div class="row align-items-center">
+      <div class="col-6">
+        <input :placeholder="t('search.parameters.query')" type="text" class="form-control" v-model="query"/>
+      </div>
+      <div class="col-2">
+        <div class="form-check form-switch">
+          <input id="search_descriptions" type="checkbox" class="form-check-input" role="switch" v-model="search_descriptions"/>
+          <label for="search_descriptions" class="form-check-label fs-5">{{ t('search.parameters.search_description') }}</label>
+        </div>
+      </div>
+      <div class="col-2">
+        <select id="sorting" class="form-select" v-model="sorting">
+          <option value="newest">{{ t('search.parameters.sorting.newest') }}</option>
+          <option value="oldest">{{ t('search.parameters.sorting.oldest') }}</option>
+        </select>
+      </div>
+      <div class="col-2">
+        <button id="search-button" class="btn btn-secondary w-75" @click="search"><i class="fa fa-search"></i> Search</button>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>

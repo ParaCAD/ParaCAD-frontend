@@ -1,13 +1,6 @@
 <template>
-  <div>
-    <div v-if="parameterType === 'int'">
-      <ParameterInputInt ref="int" :parameter="parameter"/>
-    </div>
-
-    <div v-else-if="parameterType === 'string'">
-      <ParameterInputString ref="string" :parameter="parameter"/>
-    </div>
-  </div>
+    <ParameterInputInt v-if="parameterType === 'int'" ref="int" :parameter="parameter"/>
+    <ParameterInputString v-else-if="parameterType === 'string'" ref="string" :parameter="parameter"/>
 </template>
 
 <script>

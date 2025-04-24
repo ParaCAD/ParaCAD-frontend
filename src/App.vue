@@ -5,12 +5,21 @@ const {t} = useI18n()
 </script>
 
 <template>
-  <nav>
-    <router-link to="/">{{ t("nav.home") }}</router-link>
-    |
-    <router-link to="/search">{{ t("nav.search") }}</router-link>
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+      <router-link class="navbar-brand" to="/">
+        <img src="@/assets/logo.png" alt="Bootstrap" width="30" height="30">
+      </router-link>
+<!--      TODO: replace with img-->
+      <div class="navbar-nav position-absolute top-50 start-50 translate-middle">
+        <router-link class="nav-link" to="/">{{ t("nav.home") }}</router-link>
+        <router-link class="nav-link" to="/search">{{ t("nav.search") }}</router-link>
+      </div>
+    </div>
   </nav>
-  <router-view/>
+  <div class="container-fluid" id="contents">
+    <router-view/>
+  </div>
 </template>
 
 <style>
@@ -23,15 +32,19 @@ const {t} = useI18n()
 }
 
 nav {
-  padding: 30px;
+  background-color: #0083ff;
 }
 
 nav a {
   font-weight: bold;
-  color: #2c3e50;
+  color: #ffffff !important;
 }
 
 nav a.router-link-exact-active {
-  color: #42b983;
+  color: #222222 !important;
+}
+
+#contents {
+  margin-top: 20px;
 }
 </style>

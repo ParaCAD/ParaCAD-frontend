@@ -5,8 +5,10 @@ const {t} = useI18n()
 </script>
 
 <template>
-  <SearchResultRow v-if="!is_empty" v-for="template in templates" :template="template"/>
-  <div v-if="is_empty">
+  <div class="container-md">
+    <SearchResultRow v-if="!is_empty" v-for="template in templates" :template="template"/>
+  </div>
+  <div v-if="is_empty" class="alert alert-primary w-50 position-absolute top-50 start-50 translate-middle">
     {{ t("search.results.empty") }}
   </div>
 </template>

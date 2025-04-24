@@ -1,8 +1,10 @@
 <template>
-  <div>
-    {{ parameter.displayName }}
-    <input ref="field" type="text" :name="parameter.name" :minlength="parameter.minLen" :maxlength="parameter.maxLen"
-           v-model="value" @change="onUpdate"/>
+  <div class="col-6">
+    <label class="col-form-label" :for="parameter.name">{{ parameter.displayName }}</label>
+  </div>
+  <div class="col-6">
+    <input :id="parameter.name" ref="field" type="text" :name="parameter.name" :minlength="parameter.minLen" :maxlength="parameter.maxLen"
+           class="form-control" v-model="value" @change="onUpdate"/>
   </div>
 </template>
 
