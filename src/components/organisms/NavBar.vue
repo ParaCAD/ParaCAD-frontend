@@ -18,40 +18,17 @@ const {t} = useI18n()
         <router-link class="nav-link" to="/search">{{ t("nav.search") }}</router-link>
       </div>
     </div>
-    <router-link class="nav-link" :to="userWidgetURL">
-      <UserWidget :username="username"/>
-    </router-link>
+    <UserWidget :username="username"/>
   </nav>
 </template>
 
 <script >
 import UserWidget from "@/components/atoms/UserWidget.vue";
 import {defineComponent} from "vue";
-import {jwtDecode} from "jwt-decode";
 
 export default defineComponent({
   name: "NavBar",
   props: {},
-  mounted() {
-    const token = localStorage.getItem('token');
-    if (token) {
-      const decodedToken = jwtDecode(token);
-      if (decodedToken.exp > Date.now()) {
-        localStorage.removeItem('token');
-      } else {
-        this.userUUID = decodedToken.sub;
-        this.username = decodedToken.login;
-        this.userWidgetURL = "/user/" + decodedToken.sub;
-      }
-    }
-  },
-  data() {
-    return {
-      userUUID: null,
-      username: '',
-      userWidgetURL: "/login",
-    }
-  },
   methods: {},
   components: {UserWidget}
 });

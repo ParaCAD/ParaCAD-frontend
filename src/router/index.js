@@ -1,6 +1,7 @@
 import {createRouter, createWebHistory} from 'vue-router';
 import TemplatePage from "@/components/pages/TemplatePage.vue";
 import MainPage from "@/components/pages/MainPage.vue";
+import LoginPage from "@/components/pages/LoginPage.vue";
 import SearchPage from "@/components/pages/SearchPage.vue";
 import {i18n} from '@/i18n.js'
 
@@ -24,6 +25,12 @@ const routes = [
         name: 'templatePage',
         component: TemplatePage,
         meta: {title: t('title.template') + ' - ParaCAD'}
+    },
+    {
+        path: '/login',
+        name: 'loginPage',
+        component: LoginPage,
+        meta: {title: t('title.login') + ' - ParaCAD'}
     },
 ]
 

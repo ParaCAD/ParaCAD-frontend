@@ -6,6 +6,7 @@ const translations = {
             main: 'Main',
             search: 'Search',
             template: 'Template',
+            login: 'Login',
         },
         nav: {
             home: "Home",
@@ -33,12 +34,20 @@ const translations = {
                 empty: "Nothing here!",
             },
         },
+        login: {
+            login: "Log in to ParaCAD",
+            username: "Username",
+            password: "Password",
+            login_button: "Log in",
+            no_account_register: "I don't have an account",
+        }
     },
     pl: {
         title: {
             main: 'Strona gówna',
             search: 'Wyszukaj',
             template: 'Szablon',
+            login: 'Logowanie',
         },
         nav: {
             home: "Strona główna",
@@ -66,6 +75,13 @@ const translations = {
                 empty: "Nic tu nie ma!",
             },
         },
+        login: {
+            login: "Zaloguj się do ParaCAD",
+            username: "Nazwa użytkownika",
+            password: "Hasło",
+            login_button: "Zaloguj się",
+            no_account_register: "Nie mam konta",
+        }
     }
 }
 
