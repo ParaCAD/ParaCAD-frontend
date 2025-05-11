@@ -3,7 +3,7 @@
     <label class="col-form-label" :for="parameter.name">{{ parameter.displayName }}</label>
   </div>
   <div class="col-6">
-  <input :id="parameter.name" ref="field" type="number" :name="parameter.name" :min="parameter.min" :max="parameter.max" step="1"
+  <input :id="parameter.name" ref="field" type="number" :name="parameter.name" :min="parameter.min" :max="parameter.max" :step="parameter.step"
            class="form-control" v-model="value" @change="onUpdate" required/>
   </div>
 </template>
@@ -12,7 +12,7 @@
 import {defineComponent} from 'vue';
 
 export default defineComponent({
-  name: 'ParameterInputInt',
+  name: 'ParameterInputFloat',
   props: {
     parameter: {
       type: Object,

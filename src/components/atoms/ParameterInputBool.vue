@@ -3,8 +3,8 @@
     <label class="col-form-label" :for="parameter.name">{{ parameter.displayName }}</label>
   </div>
   <div class="col-6">
-  <input :id="parameter.name" ref="field" type="number" :name="parameter.name" :min="parameter.min" :max="parameter.max" step="1"
-           class="form-control" v-model="value" @change="onUpdate" required/>
+  <input :id="parameter.name" ref="field" type="checkbox" :name="parameter.name"
+           class="form-check-input" v-model="value" @change="onUpdate"/>
   </div>
 </template>
 
@@ -12,7 +12,7 @@
 import {defineComponent} from 'vue';
 
 export default defineComponent({
-  name: 'ParameterInputInt',
+  name: 'ParameterInputBool',
   props: {
     parameter: {
       type: Object,

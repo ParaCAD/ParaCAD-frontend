@@ -66,6 +66,7 @@ export default defineComponent({
   methods: {
     generate() {
       let request = {"parameters": []}
+      // TODO: validate
       for (let [key, value] of Object.entries(this.values)) {
         request.parameters.push({
           "parameter_name": key,
@@ -84,6 +85,7 @@ export default defineComponent({
             this.download(blob, this.template.template_name + ".stl");
           }).catch(error => {
         console.error(error);
+        alert(error.response.data);
       })
     },
     download(file, filename) {
