@@ -18,7 +18,7 @@ const {t} = useI18n()
         <router-link class="nav-link" to="/search">{{ t("nav.search") }}</router-link>
       </div>
     </div>
-    <UserWidget :username="username"/>
+    <UserWidget/>
   </nav>
 </template>
 

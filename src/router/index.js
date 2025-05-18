@@ -2,6 +2,7 @@ import {createRouter, createWebHistory} from 'vue-router';
 import TemplatePage from "@/components/pages/TemplatePage.vue";
 import MainPage from "@/components/pages/MainPage.vue";
 import LoginPage from "@/components/pages/LoginPage.vue";
+import RegisterPage from "@/components/pages/RegisterPage.vue";
 import SearchPage from "@/components/pages/SearchPage.vue";
 import {i18n} from '@/i18n.js'
 
@@ -31,6 +32,12 @@ const routes = [
         name: 'loginPage',
         component: LoginPage,
         meta: {title: t('title.login') + ' - ParaCAD'}
+    },
+    {
+        path: '/register',
+        name: 'registerPage',
+        component: RegisterPage,
+        meta: {title: t('title.register') + ' - ParaCAD'}
     },
 ]
 

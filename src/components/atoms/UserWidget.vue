@@ -1,6 +1,6 @@
 <template>
   <div class="user-widget d-flex text-center align-middle">
-    <router-link class="nav-link" :to="userWidgetURL">
+    <div class="nav-link user-page-link" :onclick="gotToUserPage">
       <div class="username">
         <p v-if="is_guest">
           Log in
@@ -9,7 +9,7 @@
           Logged in as <br/> {{ username }}
         </p>
       </div>
-    </router-link>
+    </div>
 
     <div class="logout-button" v-if="!is_guest" :onclick="logout">
       <i class="fa fa-sign-out fa-lg align-middle"></i>
@@ -23,12 +23,6 @@ import {jwtDecode} from "jwt-decode";
 
 export default defineComponent({
   name: 'UserWidget',
-  props: {
-    username: {
-      type: String,
-      required: false
-    }
-  },
   mounted() {
     const token = localStorage.getItem('token');
     if (token) {
@@ -44,7 +38,6 @@ export default defineComponent({
   data() {
     const is_guest = computed(() => {
       if (this.username) {
-        console.log(this.username);
         return this.username.length === 0
       }
       return true
@@ -56,16 +49,14 @@ export default defineComponent({
       is_guest: is_guest
     }
   },
-  computed: {
-    userWidgetURL() {
-      if (this.username) {
-        return `/user/${this.userUUID}`;
-      }else{
-        return '/login'
-      }
-    }
-  },
   methods: {
+    gotToUserPage() {
+      let url = '/login';
+      if (!this.is_guest) {
+        url = `/user/${this.userUUID}`;
+      }
+      this.$router.push(url);
+    },
     logout() {
       localStorage.removeItem('token');
       delete this.username;
@@ -82,6 +73,10 @@ export default defineComponent({
 .user-widget {
   width: 150px;
   height: 50px;
+}
+
+.user-page-link {
+  cursor: pointer;
 }
 
 .username {

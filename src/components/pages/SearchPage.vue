@@ -38,8 +38,6 @@ export default defineComponent({
         search_descriptions = false
       }
       let sorting = String(this.$route.query.sorting)
-      console.log(sorting)
-      console.log(sorting_orders)
       if (!sorting_orders.includes(sorting)) {
         sorting = "newest"
       }
@@ -61,7 +59,6 @@ export default defineComponent({
     },
     reloadSearch() {
       this.search_params = this.getParams();
-      console.log(this.search_params);
 
       axios.post(BACKEND_URL + '/search', this.search_params)
           .then(response => {

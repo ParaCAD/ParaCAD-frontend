@@ -7,6 +7,7 @@ const translations = {
             search: 'Search',
             template: 'Template',
             login: 'Login',
+            register: 'Register',
         },
         nav: {
             home: "Home",
@@ -40,6 +41,17 @@ const translations = {
             password: "Password",
             login_button: "Log in",
             no_account_register: "I don't have an account",
+        },
+        register: {
+            register: "Register",
+            username: "Username",
+            email: "Email",
+            password: "Password",
+            repeat_password: "Repeat password",
+            register_button: "Register",
+            fill_field: "Fill field",
+            passwords_no_match: "Given passwords don't match!",
+            user_exists: "This account already exists!",
         }
     },
     pl: {
@@ -48,6 +60,7 @@ const translations = {
             search: 'Wyszukaj',
             template: 'Szablon',
             login: 'Logowanie',
+            register: 'Rejestracja',
         },
         nav: {
             home: "Strona główna",
@@ -81,6 +94,17 @@ const translations = {
             password: "Hasło",
             login_button: "Zaloguj się",
             no_account_register: "Nie mam konta",
+        },
+        register: {
+            register: "Zarejestruj się",
+            username: "Nazwa użytkownika",
+            email: "Email",
+            password: "Hasło",
+            repeat_password: "Powtórz hasło",
+            register_button: "Zarejestruj",
+            fill_field: "Wypełnij pole",
+            passwords_no_match: "Podane hasła nie są identyczne!",
+            user_exists: "To konto już istnieje!",
         }
     }
 }
