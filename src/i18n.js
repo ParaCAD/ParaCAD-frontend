@@ -6,6 +6,7 @@ const translations = {
             main: 'Main',
             search: 'Search',
             template: 'Template',
+            user: 'User',
             login: 'Login',
             register: 'Register',
         },
@@ -17,7 +18,13 @@ const translations = {
             content: "Welcome to ParaCAD!",
         },
         template: {
+            created_by: "Created by",
             generate_button: "Generate",
+        },
+        user: {
+            users_templates: "Templates created by",
+            your_templates: "Your templates",
+            user_does_not_exist: "User does not exist!",
         },
         search: {
             button: "Search",
@@ -59,6 +66,7 @@ const translations = {
             main: 'Strona gówna',
             search: 'Wyszukaj',
             template: 'Szablon',
+            user: 'Użytkownik',
             login: 'Logowanie',
             register: 'Rejestracja',
         },
@@ -70,7 +78,13 @@ const translations = {
             content: "Witamy w aplikacji ParaCAD!",
         },
         template: {
+            created_by: "Stworzony przez",
             generate_button: "Generuj",
+        },
+        user: {
+            users_templates: "Szablony użytkownika",
+            your_templates: "Twoje szablony",
+            user_does_not_exist: "Użytkownik nie istnieje!",
         },
         search: {
             button: "Szukaj",

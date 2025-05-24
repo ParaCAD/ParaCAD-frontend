@@ -28,7 +28,7 @@ export default defineComponent({
   },
   data() {
     const is_empty = computed(() => {
-      return this.templates === null || this.templates.length === 0
+      return !this.templates || this.templates.length === 0
     })
     return {is_empty}
   },

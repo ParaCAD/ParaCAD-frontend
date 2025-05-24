@@ -6,8 +6,15 @@ const {t} = useI18n()
 
 <template>
   <div class="container w-50">
-  <img class="img-fluid rounded w-50" :src="'http://localhost:8081/image/'+template.template_preview" alt="Generated model preview"/>
-  <h2 class="mt-2">{{ template.template_name }}</h2>
+  <img class="img-fluid rounded w-50" :src="template.template_preview" alt="Generated model preview"/>
+  <h2 class="mt-2">
+    {{ template.template_name }}
+    <br/>
+    ({{ t("template.created_by") }}
+    <a :href="/user/+template.owner_uuid">
+      {{ template.owner_name }})
+    </a>
+  </h2>
   <ModelForm :parameters="template.template_parameters"/>
   <button class="btn btn-primary" @click="generate">{{ t("template.generate_button") }}</button>
   </div>
@@ -50,6 +57,7 @@ export default defineComponent({
     axios.get(BACKEND_URL + '/template/' + templateUUID)
         .then(response => {
           this.template = response.data;
+          this.template.template_preview = BACKEND_URL + '/image/' + this.template.template_preview;
           for (let parameter of this.template.template_parameters) {
             this.values[parameter.parameter_name] = parameter.parameter_default_value;
           }
