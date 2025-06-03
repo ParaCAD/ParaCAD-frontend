@@ -1,12 +1,19 @@
+<script setup>
+import {useI18n} from 'vue-i18n'
+
+const {t} = useI18n()
+</script>
+
+
 <template>
   <div class="user-widget d-flex text-center align-middle">
     <div class="nav-link user-page-link" :onclick="gotToUserPage">
       <div class="username">
         <p v-if="is_guest">
-          Log in
+          {{ t('login.login_button') }}
         </p>
         <p v-else>
-          Logged in as <br/> {{ username }}
+          {{ t('login.logged_in_as') }} <br/> {{ username }}
         </p>
       </div>
     </div>
@@ -37,10 +44,7 @@ export default defineComponent({
   },
   data() {
     const is_guest = computed(() => {
-      if (this.username) {
-        return this.username.length === 0
-      }
-      return true
+      return !localStorage.getItem('token')
     })
     return {
       userUUID: null,
