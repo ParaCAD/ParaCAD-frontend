@@ -5,11 +5,11 @@
 
 <script>
 import {defineComponent} from 'vue';
-import UsernameInput from "@/components/atoms/UsernameInput.vue";
+import UserNameInput from "@/components/atoms/UserNameInput.vue";
 import PasswordInput from "@/components/atoms/PasswordInput.vue";
 
 export default defineComponent({
   name: "LoginUserForm",
-  components: {PasswordInput, UsernameInput}
+  components: {PasswordInput, UsernameInput: UserNameInput}
 });
 </script>

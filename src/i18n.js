@@ -44,6 +44,12 @@ const translations = {
                 empty: "Nothing here!",
             },
         },
+        create_template: {
+            header: "Create template",
+            template_name: "Template name",
+            template_description: "Template description",
+            create_button: "Create",
+        },
         login: {
             login: "Log in to ParaCAD",
             username: "Username",
@@ -106,6 +112,12 @@ const translations = {
                 created: "utworzony",
                 empty: "Nic tu nie ma!",
             },
+        },
+        create_template: {
+            header: "Tworzenie szablonu",
+            template_name: "Nazwa szablonu",
+            template_description: "Opis szablonu",
+            create_button: "Stwórz",
         },
         login: {
             login: "Zaloguj się do ParaCAD",

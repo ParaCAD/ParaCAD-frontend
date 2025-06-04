@@ -7,10 +7,10 @@
 
 <script>
 import {computed, defineComponent} from 'vue';
-import ParameterInputInt from '../atoms/ParameterInputInt.vue';
-import ParameterInputString from '../atoms/ParameterInputString.vue';
-import ParameterInputFloat from "@/components/atoms/ParameterInputFloat.vue";
-import ParameterInputBool from "@/components/atoms/ParameterInputBool.vue";
+import ParameterInputInt from '@/components/atoms/parameterInput/ParameterInputInt.vue';
+import ParameterInputString from '@/components/atoms/parameterInput/ParameterInputString.vue';
+import ParameterInputFloat from "@/components/atoms/parameterInput/ParameterInputFloat.vue";
+import ParameterInputBool from "@/components/atoms/parameterInput/ParameterInputBool.vue";
 
 const ParameterType = {
   Int: 'int',
