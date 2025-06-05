@@ -5,11 +5,11 @@ const {t} = useI18n()
 </script>
 
 <template>
-  <div class="col-6">
+  <div class="col-3">
     {{ t('create_template.template_name') }}
   </div>
-  <div class="col-6">
-    <input type="text" v-model="template_name" @change="onUpdate">
+  <div class="col-9">
+    <input class="template_name_input_text" type="text" v-model="template_name" @change="onUpdate">
   </div>
 </template>
 
@@ -30,3 +30,9 @@ export default defineComponent({
   }
 });
 </script>
+
+<style>
+.template_name_input_text{
+  width: 100%;
+}
+</style>

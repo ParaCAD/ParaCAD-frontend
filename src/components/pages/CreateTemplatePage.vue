@@ -7,7 +7,7 @@ const {t} = useI18n()
 
 <template>
   <h2>{{ t("create_template.header") }}</h2>
-  <div class="container w-50">
+  <div class="container w-75">
     <CreateTemplateForm/>
     <button class="btn btn-primary" @click="create">{{ t("create_template.create_button") }}</button>
   </div>

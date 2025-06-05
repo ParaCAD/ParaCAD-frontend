@@ -1,12 +1,11 @@
 <template>
-  <div class="container w-50 ModelForm mt-2 mb-2">
-    <div class="container w-50 mt-2 mb-2">
-      <div class="row gy-1">
-    <TemplateNameInput/>
-<!--    TODO: input description-->
+  <div class="container w-75">
+    <div class="row gy-1">
+      <TemplateNameInput/>
+      <TemplateDescriptionInput/>
+      <TemplateContentInput/>
 <!--    TODO: input preview-->
 <!--    TODO: input parameters-->
-      </div>
     </div>
   </div>
 </template>
@@ -15,11 +14,13 @@
 import {defineComponent} from 'vue';
 import ParameterInputField from '../molecules/ParameterInputField.vue';
 import TemplateNameInput from "@/components/atoms/TemplateNameInput.vue";
+import TemplateContentInput from "@/components/atoms/TemplateContentInput.vue";
+import TemplateDescriptionInput from "@/components/atoms/TemplateDescriptionInput.vue";
 
 export default defineComponent({
   name: "CreateTemplateForm",
   props: {},
   methods: {},
-  components: {TemplateNameInput}
+  components: {TemplateDescriptionInput, TemplateContentInput, TemplateNameInput}
 });
 </script>

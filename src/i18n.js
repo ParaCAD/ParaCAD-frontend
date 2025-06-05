@@ -47,6 +47,7 @@ const translations = {
         create_template: {
             header: "Create template",
             template_name: "Template name",
+            template_content: "Template content",
             template_description: "Template description",
             create_button: "Create",
         },
@@ -116,6 +117,7 @@ const translations = {
         create_template: {
             header: "Tworzenie szablonu",
             template_name: "Nazwa szablonu",
+            template_content: "Treść szablonu",
             template_description: "Opis szablonu",
             create_button: "Stwórz",
         },
