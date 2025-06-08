@@ -16,6 +16,9 @@ const {t} = useI18n()
 <script>
 import {defineComponent} from 'vue';
 import axios from "axios";
+import {i18n} from "@/i18n";
+
+const {t} = i18n.global
 
 export default defineComponent({
   name: "CreateTemplatePage",
@@ -28,11 +31,7 @@ export default defineComponent({
         template_content: '',
         template_parameters: [],
       },
-      errors: {
-        "template_name": ".",
-        "template_description": ".",
-        "template_content": ".",
-      },
+      errors: {},
       is_error: true,
     };
   },
@@ -101,7 +100,7 @@ export default defineComponent({
               return;
             }
             if (error.response.status === 409) {
-              alert("Can't generate model from this template!");
+              alert(t('create_template.error.ungeneratable'));
               return;
             }
             if (error.response.status === 500) {

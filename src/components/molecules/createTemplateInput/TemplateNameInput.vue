@@ -1,6 +1,6 @@
 <script setup>
 import {useI18n} from 'vue-i18n'
-import CreateTemplateValidationError from "@/components/atoms/createTemplateInput/CreateTemplateValidationError.vue";
+import CreateTemplateValidationError from "@/components/atoms/CreateTemplateValidationError.vue";
 
 const {t} = useI18n()
 </script>
@@ -18,9 +18,15 @@ const {t} = useI18n()
 
 <script>
 import {defineComponent} from 'vue';
+import {i18n} from "@/i18n";
+
+const {t} = i18n.global
 
 export default defineComponent({
   name: 'TemplateNameInput',
+  created() {
+    this.emitter.emit("update:error", {name: "template_name", value: "."});
+  },
   data() {
     return {
       template_name: "",
@@ -30,11 +36,11 @@ export default defineComponent({
   methods: {
     onUpdate() {
       this.validation_error = ""
-      if (this.template_name.length < 3){
-        this.validation_error = "Template name must be at least 3 characters"
+      if (this.template_name.length < 5){
+        this.validation_error = t('create_template.error.too_short',{name:t('create_template.template_name'),value:5})
       }
       if (this.template_name.length > 100){
-        this.validation_error = "Template name must be at max 100 characters"
+        this.validation_error = t('create_template.error.too_long',{name:t('create_template.template_name'),value:100})
       }
       if (this.validation_error !== ""){
         this.emitter.emit("update:error", {name: "template_name", value: this.validation_error});

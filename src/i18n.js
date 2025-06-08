@@ -22,6 +22,13 @@ const translations = {
         template: {
             created_by: "Created by",
             generate_button: "Generate",
+            error: {
+                too_small: "Too small (min value: {min})",
+                too_large: "Too large (max value: {max})",
+                not_exact: "Must be a multiple of {val}",
+                too_short: "Too short (min length: {min})",
+                too_long: "Too long (max length: {max})",
+            },
         },
         user: {
             users_templates: "Templates created by",
@@ -50,6 +57,11 @@ const translations = {
             template_content: "Template content",
             template_description: "Template description",
             create_button: "Create",
+            error: {
+                too_short: "{name} must be at least {value} characters",
+                too_long: "{name} must be at max {value} characters",
+                ungeneratable: "This template could not be generated!",
+            },
         },
         login: {
             login: "Log in to ParaCAD",
@@ -92,6 +104,13 @@ const translations = {
         template: {
             created_by: "Stworzony przez",
             generate_button: "Generuj",
+            error: {
+                too_small: "Za mało (minimalna wartość: {min})",
+                too_large: "Za dużo (maksymalna wartość: {max})",
+                not_exact: "Musi być wielokrotnością {val}",
+                too_short: "Za krótki (minimalna długość: {min})",
+                too_long: "Za długi (maksymalna długość: {max})",
+            },
         },
         user: {
             users_templates: "Szablony użytkownika",
@@ -120,6 +139,11 @@ const translations = {
             template_content: "Treść szablonu",
             template_description: "Opis szablonu",
             create_button: "Stwórz",
+            error: {
+                too_short: "{name} musi mieć przynajmniej {value} znaków",
+                too_long: "{name} może mieć najwyżej {value} znaków",
+                ungeneratable: "Nie udało się wygenerować modelu z danego szablonu!",
+            },
         },
         login: {
             login: "Zaloguj się do ParaCAD",

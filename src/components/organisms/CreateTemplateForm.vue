@@ -4,7 +4,7 @@
       <TemplateNameInput/>
       <TemplateDescriptionInput/>
       <TemplateContentInput/>
-<!--    TODO: input preview-->
+<!--    TODO: consider custom preview upload-->
 <!--    TODO: input parameters-->
       TODO: parameters
     </div>
@@ -13,10 +13,9 @@
 
 <script>
 import {defineComponent} from 'vue';
-import ParameterInputField from '../molecules/ParameterInputField.vue';
-import TemplateNameInput from "@/components/atoms/createTemplateInput/TemplateNameInput.vue";
-import TemplateContentInput from "@/components/atoms/createTemplateInput/TemplateContentInput.vue";
-import TemplateDescriptionInput from "@/components/atoms/createTemplateInput/TemplateDescriptionInput.vue";
+import TemplateNameInput from "@/components/molecules/createTemplateInput/TemplateNameInput.vue";
+import TemplateContentInput from "@/components/molecules/createTemplateInput/TemplateContentInput.vue";
+import TemplateDescriptionInput from "@/components/molecules/createTemplateInput/TemplateDescriptionInput.vue";
 
 export default defineComponent({
   name: "CreateTemplateForm",
