@@ -1,5 +1,5 @@
 import {createI18n} from "vue-i18n";
-
+// TODO: translate all error messages
 const translations = {
     en: {
         title: {

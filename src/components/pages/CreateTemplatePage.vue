@@ -9,7 +9,7 @@ const {t} = useI18n()
   <h2>{{ t("create_template.header") }}</h2>
   <div class="container w-75">
     <CreateTemplateForm/>
-    <button class="btn btn-primary" @click="create">{{ t("create_template.create_button") }}</button>
+    <button :disabled="is_error" class="btn btn-primary" @click="create">{{ t("create_template.create_button") }}</button>
   </div>
 </template>
 
@@ -23,11 +23,17 @@ export default defineComponent({
   data() {
     return {
       template: {
-        template_name: 'Test',
-        template_description: 'Test template description hardcoded in frontend',
-        template_content: 'lorem ipsum dolor sit amet xDDDD',
+        template_name: '',
+        template_description: '',
+        template_content: '',
         template_parameters: [],
-      }
+      },
+      errors: {
+        "template_name": ".",
+        "template_description": ".",
+        "template_content": ".",
+      },
+      is_error: true,
     };
   },
   setup() {
@@ -39,6 +45,13 @@ export default defineComponent({
     });
     this.emitter.on('update:parameter', (data) => {
       console.log('update parameter not implemented!!!: '+data);
+    });
+    this.emitter.on('update:error', (data) => {
+      this.errors[data.name] = data.value;
+      this.is_error = null;
+      if (!Object.values(this.errors).every(err => err === "")){
+        this.is_error = true;
+      }
     });
   },
   methods: {
@@ -77,6 +90,18 @@ export default defineComponent({
           .catch(error => {
             if (error.response.status === 400) {
               alert(error.response.data);
+              return;
+            }
+            if (error.response.status === 401) {
+              localStorage.removeItem("token");
+              alert("Logged out!");
+              this.$router.push('/').then(() => {
+                window.location.reload();
+              });
+              return;
+            }
+            if (error.response.status === 409) {
+              alert("Can't generate model from this template!");
               return;
             }
             if (error.response.status === 500) {
