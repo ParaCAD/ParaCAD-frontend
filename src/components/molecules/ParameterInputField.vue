@@ -11,21 +11,7 @@ import ParameterInputInt from '@/components/atoms/parameterInput/ParameterInputI
 import ParameterInputString from '@/components/atoms/parameterInput/ParameterInputString.vue';
 import ParameterInputFloat from "@/components/atoms/parameterInput/ParameterInputFloat.vue";
 import ParameterInputBool from "@/components/atoms/parameterInput/ParameterInputBool.vue";
-
-const ParameterType = {
-  Int: 'int',
-  Float: 'float',
-  String: 'string',
-  Bool: 'bool'
-}
-
-const ConstraintType = {
-  MinValue: "min_value",
-  MaxValue: "max_value",
-  Step: "step",
-  MinLength: "min_length",
-  MaxLength: "max_length"
-}
+import {ParameterType, ConstraintType} from "@/components/atoms/ParameterConsts";
 
 export default defineComponent({
   name: 'ParameterInputField',

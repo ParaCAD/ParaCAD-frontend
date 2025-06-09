@@ -5,8 +5,7 @@
       <TemplateDescriptionInput/>
       <TemplateContentInput/>
 <!--    TODO: consider custom preview upload-->
-<!--    TODO: input parameters-->
-      TODO: parameters
+      <CreateTemplateParametersInput :parameters="parameters"/>
     </div>
   </div>
 </template>
@@ -16,11 +15,18 @@ import {defineComponent} from 'vue';
 import TemplateNameInput from "@/components/molecules/createTemplateInput/TemplateNameInput.vue";
 import TemplateContentInput from "@/components/molecules/createTemplateInput/TemplateContentInput.vue";
 import TemplateDescriptionInput from "@/components/molecules/createTemplateInput/TemplateDescriptionInput.vue";
+import CreateTemplateParametersList
+  from "@/components/molecules/createTemplateInput/CreateTemplateParametersList.vue";
 
 export default defineComponent({
   name: "CreateTemplateForm",
-  props: {},
+  props: {
+    parameters:{
+      type: Array,
+      required: true
+    }
+  },
   methods: {},
-  components: {TemplateDescriptionInput, TemplateContentInput, TemplateNameInput}
+  components: {CreateTemplateParametersInput: CreateTemplateParametersList, TemplateDescriptionInput, TemplateContentInput, TemplateNameInput}
 });
 </script>

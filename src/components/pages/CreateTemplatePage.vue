@@ -8,7 +8,7 @@ const {t} = useI18n()
 <template>
   <h2>{{ t("create_template.header") }}</h2>
   <div class="container w-75">
-    <CreateTemplateForm/>
+    <CreateTemplateForm :parameters="template.template_parameters"/>
     <button :disabled="is_error" class="btn btn-primary" @click="create">{{ t("create_template.create_button") }}</button>
   </div>
 </template>
@@ -17,6 +17,7 @@ const {t} = useI18n()
 import {defineComponent} from 'vue';
 import axios from "axios";
 import {i18n} from "@/i18n";
+import {ParameterType} from "@/components/atoms/ParameterConsts";
 
 const {t} = i18n.global
 
@@ -29,7 +30,7 @@ export default defineComponent({
         template_name: '',
         template_description: '',
         template_content: '',
-        template_parameters: [],
+        template_parameters: [{type:"int",name:"aaa", display_name:"Aaa", value:"123", min:"1", max:"200"}],
       },
       errors: {},
       is_error: true,
@@ -41,6 +42,9 @@ export default defineComponent({
   mounted() {
     this.emitter.on('update:field', (data) => {
       this.template[data.name] = data.value;
+    });
+    this.emitter.on('update:add_parameter', (data) => {
+      this.template.template_parameters.push(this.create_empty_parameter(data.type));
     });
     this.emitter.on('update:parameter', (data) => {
       console.log('update parameter not implemented!!!: '+data);
@@ -109,6 +113,30 @@ export default defineComponent({
             }
             console.error(error);
           })
+    },
+    create_empty_parameter(type) {
+      switch (type) {
+        case ParameterType.Int:
+          return {type: ParameterType.Int,
+          name:"parameter",
+          display_name:"Parameter Name",
+          value:5, min:0,max:10}
+        case ParameterType.Float:
+          return {type: ParameterType.Float,
+            name:"parameter",
+            display_name:"Parameter Name",
+            value:5.0, min:0.0,max:10.0, step:0.5}
+        case ParameterType.String:
+          return {type: ParameterType.String,
+            name:"parameter",
+            display_name:"Parameter Name",
+            value:"text", minLen:"3",maxLen:"10"}
+        case ParameterType.Bool:
+          return {type: ParameterType.Bool,
+            name:"parameter",
+            display_name:"Parameter Name",
+            value:false}
+      }
     }
   }
 });
