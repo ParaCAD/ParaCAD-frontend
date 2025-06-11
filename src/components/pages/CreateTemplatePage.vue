@@ -51,10 +51,10 @@ export default defineComponent({
     });
     this.emitter.on('update:delete_parameter', (data) => {
       this.template.template_parameters.splice(data.index, 1)
-      console.log(this.template.template_parameters)
     });
     this.emitter.on('update:parameter', (data) => {
-      console.log('update parameter not implemented!!!: ' + data);
+      this.template.template_parameters[data.index] = data.parameter;
+      console.log(this.template.template_parameters);
     });
     this.emitter.on('update:error', (data) => {
       this.errors[data.name] = data.value;
