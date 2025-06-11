@@ -4,7 +4,7 @@
       <TemplateNameInput/>
       <TemplateDescriptionInput/>
       <TemplateContentInput/>
-<!--    TODO: consider custom preview upload-->
+      <!--    TODO: consider custom preview upload-->
       <CreateTemplateParametersInput :parameters="parameters"/>
     </div>
   </div>
@@ -21,12 +21,17 @@ import CreateTemplateParametersList
 export default defineComponent({
   name: "CreateTemplateForm",
   props: {
-    parameters:{
+    parameters: {
       type: Array,
       required: true
     }
   },
   methods: {},
-  components: {CreateTemplateParametersInput: CreateTemplateParametersList, TemplateDescriptionInput, TemplateContentInput, TemplateNameInput}
+  components: {
+    CreateTemplateParametersInput: CreateTemplateParametersList,
+    TemplateDescriptionInput,
+    TemplateContentInput,
+    TemplateNameInput
+  }
 });
 </script>

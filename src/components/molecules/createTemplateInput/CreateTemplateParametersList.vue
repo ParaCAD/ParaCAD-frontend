@@ -1,12 +1,13 @@
 <script setup>
 import {ParameterType} from "@/components/atoms/ParameterConsts";
+import CreateTemplateParameter from "@/components/atoms/CreateTemplateParameter.vue";
 
 </script>
 
 <template>
-  <div class="container p-2">
-    <div v-for="parameter in parameters">
-      {{ parameter.name }} {{ parameter.type }}
+  <div class="container p-2 text-center">
+    <div v-for="(parameter, index) in parameters">
+      <CreateTemplateParameter :index="index" :parameter="parameter"/>
     </div>
     <div class="row gy-1">
       <div class="col-3">
@@ -31,13 +32,13 @@ import {defineComponent} from "vue";
 export default defineComponent({
   name: "CreateTemplateParametersList",
   props: {
-    parameters:{
+    parameters: {
       type: Array,
       required: true
     }
   },
   methods: {
-    addParameter(type){
+    addParameter(type) {
       this.emitter.emit("update:add_parameter", {type: type});
     }
   },
