@@ -20,7 +20,7 @@ const {t} = useI18n()
 import {defineComponent} from 'vue';
 import axios from "axios";
 import {i18n} from "@/i18n";
-import {ParameterType} from "@/components/atoms/ParameterConsts";
+import {ParameterType, ConstraintType} from "@/components/atoms/ParameterConsts";
 
 const {t} = i18n.global
 
@@ -35,7 +35,11 @@ export default defineComponent({
         template_content: '',
         template_parameters: [],
       },
-      errors: {},
+      errors: {
+        template_name: ".",
+        template_description:".",
+        template_content: ".",
+      },
       is_error: true,
     };
   },
@@ -54,7 +58,6 @@ export default defineComponent({
     });
     this.emitter.on('update:parameter', (data) => {
       this.template.template_parameters[data.index] = data.parameter;
-      console.log(this.template.template_parameters);
     });
     this.emitter.on('update:error', (data) => {
       this.errors[data.name] = data.value;
@@ -62,6 +65,7 @@ export default defineComponent({
       if (!Object.values(this.errors).every(err => err === "")) {
         this.is_error = true;
       }
+      console.log(this.errors);
     });
   },
   methods: {
@@ -71,6 +75,34 @@ export default defineComponent({
       request.template_name = this.template.template_name;
       request.template_description = this.template.template_description;
       request.template_content = this.template.template_content;
+      request.template_parameters = []
+      for(let param of this.template.template_parameters) {
+        let request_parameter = {
+          parameter_name: param.name,
+          parameter_display_name: param.display_name,
+          parameter_type: param.type,
+          parameter_default_value: param.value.toString(),
+        }
+        switch (param.type) {
+          case ParameterType.Int:
+            request_parameter.parameter_constraints = [
+              {type: ConstraintType.MinValue, value: param.min.toString()},
+              {type: ConstraintType.MaxValue, value: param.max.toString()},
+            ]
+            break
+          case ParameterType.Float:
+            // TODO
+            break
+          case ParameterType.String:
+            // TODO
+            break
+          case ParameterType.Bool:
+            // TODO
+            break
+        }
+        console.log(request_parameter)
+        request.template_parameters.push(request_parameter);
+      }
 
       console.log(request)
 
