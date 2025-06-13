@@ -6,35 +6,47 @@ import CreateTemplateValidationError from "@/components/atoms/CreateTemplateVali
 
 <template>
   <div class="param_row row gy-1 border border-black rounded align-middle"
-  :class="{'error_param_row':validation_error}">
-    <div class="col-1 align-middle">
-      <div>
-        {{ index + 1 }}
-        <span class="badge text-bg-secondary text-bg-success">{{ typeSymbol }}</span>
-      </div>
-    </div>
-    <div class="col-2">
-      <input class="parameter_display_name_input" type="text" v-model="parameter.display_name" @change="updateParameter"/>
-    </div>
-    <div class="col-2">
+       :class="{'error_param_row':validation_error}">
+    <div class="col-2 align-middle">
+      {{ index + 1 }}
+      <span class="badge text-bg-secondary text-bg-success">{{ typeSymbol }}</span>
       <input class="parameter_name_input" type="text" v-model="parameter.name" @change="updateParameter"/>
     </div>
-    <div v-if="parameter.type===ParameterType.Int" class="col-6">
-      Val:<input class="param-field" type="number" step="1" v-model="parameter.value"
-             @change="updateParameter" required/>
-      Min:<input class="param-field" type="number" step="1" v-model="parameter.min"
-                 @change="updateParameter" required/>
-      Max:<input class="param-field" type="number" step="1" v-model="parameter.max"
-                 @change="updateParameter" required/>
+    <div class="col-2">
+      <input class="parameter_display_name_input" type="text" v-model="parameter.display_name"
+             @change="updateParameter"/>
     </div>
-    <div v-else-if="parameter.type===ParameterType.Float" class="col-6">
-      TODO: float fields
-    </div>
-    <div v-else-if="parameter.type===ParameterType.String" class="col-6">
-      TODO: string fields
-    </div>
-    <div v-else-if="parameter.type===ParameterType.Bool" class="col-6">
-    TODO: bool fields
+    <div class="col-7">
+      <div v-if="parameter.type===ParameterType.Int">
+        Val:<input class="param_field_int" type="number" step="1" v-model="parameter.value"
+                   @change="updateParameter" required/>
+        Min:<input class="param_field_int" type="number" step="1" v-model="parameter.min"
+                   @change="updateParameter" required/>
+        Max:<input class="param_field_int" type="number" step="1" v-model="parameter.max"
+                   @change="updateParameter" required/>
+      </div>
+      <div v-else-if="parameter.type===ParameterType.Float">
+        Val:<input class="param_field_float" type="number" step="0.0001" v-model="parameter.value"
+                   @change="updateParameter" required/>
+        Min:<input class="param_field_float" type="number" step="0.0001" v-model="parameter.min"
+                   @change="updateParameter" required/>
+        Max:<input class="param_field_float" type="number" step="0.0001" v-model="parameter.max"
+                   @change="updateParameter" required/>
+        Step:<input class="param_field_float" type="number" step="0.0001" v-model="parameter.step"
+                    @change="updateParameter" required/>
+      </div>
+      <div v-else-if="parameter.type===ParameterType.String">
+        Val:<input class="param_field_string" type="text" step="0.0001" v-model="parameter.value"
+                   @change="updateParameter" required/>
+        MinLen:<input class="param_field_string" type="number" step="1" v-model="parameter.minLen"
+                   @change="updateParameter" required/>
+        MaxLen:<input class="param_field_string" type="number" step="1" v-model="parameter.maxLen"
+                   @change="updateParameter" required/>
+      </div>
+      <div v-else-if="parameter.type===ParameterType.Bool">
+        Val:<input class="param_field_bool" type="checkbox" v-model="parameter.value"
+                   @change="updateParameter" required/>
+      </div>
     </div>
     <div class="col-1">
       <button class="button_delete btn btn-danger"
@@ -52,8 +64,7 @@ import {ParameterType} from "@/components/atoms/ParameterConsts";
 
 export default defineComponent({
   name: "CreateTemplateParameter",
-  computed: {
-  },
+  computed: {},
   props: {
     parameter: {
       type: Object,
@@ -95,22 +106,41 @@ export default defineComponent({
           }
           if (this.parameter.value < this.parameter.min) {
             this.validation_error = "Value less than min"
-          }else if (this.parameter.value > this.parameter.max) {
+          } else if (this.parameter.value > this.parameter.max) {
             this.validation_error = "Value more than max"
           }
           break
         case ParameterType.Float:
+          if (this.parameter.min >= this.parameter.max) {
+            this.validation_error = "Maximum must be greater than minimum";
+          }
+          if (this.parameter.value < this.parameter.min) {
+            this.validation_error = "Value less than min"
+          } else if (this.parameter.value > this.parameter.max) {
+            this.validation_error = "Value more than max"
+          }
+          if (this.parameter.step <= 0) {
+            this.validation_error = "Step must be greater than 0";
+          }
           break
         case ParameterType.String:
+          if (this.parameter.minLen >= this.parameter.maxLen) {
+            this.validation_error = "Maximum must be greater than minimum";
+          }
+          if (this.parameter.value.length < this.parameter.minLen) {
+            this.validation_error = "Value length less than min"
+          } else if (this.parameter.value.length > this.parameter.maxLen) {
+            this.validation_error = "Value length more than max"
+          }
           break
         case ParameterType.Bool:
           break
       }
-      this.emitter.emit("update:error", {name: "param"+this.index, value: this.validation_error});
+      this.emitter.emit("update:error", {name: "param" + this.index, value: this.validation_error});
       this.emitter.emit("update:parameter", {index: this.index, parameter: this.parameter});
     },
     deleteParameter() {
-      this.emitter.emit("update:error", {name: "param"+this.index, value: ""});
+      this.emitter.emit("update:error", {name: "param" + this.index, value: ""});
       this.emitter.emit("update:delete_parameter", {index: this.index});
     }
   },
@@ -123,9 +153,11 @@ export default defineComponent({
   height: 40px;
   margin-bottom: 10px;
 }
-.error_param_row{
+
+.error_param_row {
   height: 110px;
 }
+
 .button_delete {
   width: 25px;
   height: 25px;
@@ -133,13 +165,25 @@ export default defineComponent({
   padding: 0;
   text-align: center;
 }
+
 .parameter_display_name_input {
   width: 100%;
 }
+
 .parameter_name_input {
-  width: 100%;
+  width: 60%;
+  margin-left: 10px;
 }
-.param-field {
+
+.param_field_int {
   width: 25%;
+}
+
+.param_field_float {
+  width: 15%;
+}
+
+.param_field_string{
+  width: 20%;
 }
 </style>

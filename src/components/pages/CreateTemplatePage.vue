@@ -51,7 +51,7 @@ export default defineComponent({
       this.template[data.name] = data.value;
     });
     this.emitter.on('update:add_parameter', (data) => {
-      this.template.template_parameters.push(this.create_empty_parameter(data.type));
+      this.template.template_parameters.push(this.create_empty_parameter(data.type, this.template.template_parameters.length+1));
     });
     this.emitter.on('update:delete_parameter', (data) => {
       this.template.template_parameters.splice(data.index, 1)
@@ -153,33 +153,33 @@ export default defineComponent({
             console.error(error);
           })
     },
-    create_empty_parameter(type) {
+    create_empty_parameter(type, idx) {
       switch (type) {
         case ParameterType.Int:
           return {
             type: ParameterType.Int,
-            name: "parameter",
+            name: "param"+idx,
             display_name: "Parameter Name",
             value: 5, min: 0, max: 10
           }
         case ParameterType.Float:
           return {
             type: ParameterType.Float,
-            name: "parameter",
+            name: "param"+idx,
             display_name: "Parameter Name",
             value: 5.0, min: 0.0, max: 10.0, step: 0.5
           }
         case ParameterType.String:
           return {
             type: ParameterType.String,
-            name: "parameter",
+            name: "param"+idx,
             display_name: "Parameter Name",
             value: "text", minLen: "3", maxLen: "10"
           }
         case ParameterType.Bool:
           return {
             type: ParameterType.Bool,
-            name: "parameter",
+            name: "param"+idx,
             display_name: "Parameter Name",
             value: false
           }
