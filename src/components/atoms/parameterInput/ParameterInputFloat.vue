@@ -41,12 +41,6 @@ export default defineComponent({
       if (this.value > this.parameter.max){
         this.validation_error = t('template.error.too_large',{max: this.parameter.max});
       }
-      if (this.value % this.parameter.step > 0.0001 &&
-         ( (this.value % this.parameter.step) - this.parameter.step > 0.0001
-         || (this.value % this.parameter.step) - this.parameter.step < -0.0001
-         )) {
-        this.validation_error = t('template.error.not_exact',{val: this.parameter.step});
-      }
       if (this.validation_error !== ""){
         this.emitter.emit("update:error", {name: this.parameter.name, value: this.validation_error});
         return;

@@ -125,7 +125,7 @@ export default defineComponent({
           break
         case ParameterType.String:
           if (this.parameter.minLen >= this.parameter.maxLen) {
-            this.validation_error = "Maximum must be greater than minimum";
+            this.validation_error = "Maximum length must be greater than minimum length";
           }
           if (this.parameter.value.length < this.parameter.minLen) {
             this.validation_error = "Value length less than min"

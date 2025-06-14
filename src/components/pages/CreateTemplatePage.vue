@@ -1,6 +1,7 @@
 <script setup>
 import {useI18n} from 'vue-i18n'
 import CreateTemplateForm from "@/components/organisms/CreateTemplateForm.vue";
+import CreateTemplateValidationError from "@/components/atoms/CreateTemplateValidationError.vue";
 
 const {t} = useI18n()
 </script>
@@ -9,6 +10,7 @@ const {t} = useI18n()
   <h2>{{ t("create_template.header") }}</h2>
   <div class="container w-75">
     <CreateTemplateForm :parameters="template.template_parameters"/>
+    <CreateTemplateValidationError :err="validation_error"/>
     <button :disabled="is_error" class="btn btn-primary" @click="create">{{
         t("create_template.create_button")
       }}
@@ -37,9 +39,10 @@ export default defineComponent({
       },
       errors: {
         template_name: ".",
-        template_description:".",
+        template_description: ".",
         template_content: ".",
       },
+      validation_error: "",
       is_error: true,
     };
   },
@@ -51,7 +54,7 @@ export default defineComponent({
       this.template[data.name] = data.value;
     });
     this.emitter.on('update:add_parameter', (data) => {
-      this.template.template_parameters.push(this.create_empty_parameter(data.type, this.template.template_parameters.length+1));
+      this.template.template_parameters.push(this.create_empty_parameter(data.type, this.template.template_parameters.length + 1));
     });
     this.emitter.on('update:delete_parameter', (data) => {
       this.template.template_parameters.splice(data.index, 1)
@@ -71,12 +74,18 @@ export default defineComponent({
   methods: {
     create() {
       let request = {}
-      // TODO: validate
+      this.validation_error = "";
+
+      if (this.template.template_parameters.length === 0){
+        this.validation_error = t('create_template.error.no_parameters');
+        return;
+      }
+
       request.template_name = this.template.template_name;
       request.template_description = this.template.template_description;
       request.template_content = this.template.template_content;
       request.template_parameters = []
-      for(let param of this.template.template_parameters) {
+      for (let param of this.template.template_parameters) {
         let request_parameter = {
           parameter_name: param.name,
           parameter_display_name: param.display_name,
@@ -91,20 +100,23 @@ export default defineComponent({
             ]
             break
           case ParameterType.Float:
-            // TODO
+            request_parameter.parameter_constraints = [
+              {type: ConstraintType.MinValue, value: param.min.toString()},
+              {type: ConstraintType.MaxValue, value: param.max.toString()},
+              {type: ConstraintType.Step, value: param.step.toString()},
+            ]
             break
           case ParameterType.String:
-            // TODO
+            request_parameter.parameter_constraints = [
+              {type: ConstraintType.MinLength, value: param.minLen.toString()},
+              {type: ConstraintType.MaxLength, value: param.maxLen.toString()},
+            ]
             break
           case ParameterType.Bool:
-            // TODO
             break
         }
-        console.log(request_parameter)
         request.template_parameters.push(request_parameter);
       }
-
-      console.log(request)
 
       const token = localStorage.getItem("token");
       if (!token) {
@@ -158,28 +170,28 @@ export default defineComponent({
         case ParameterType.Int:
           return {
             type: ParameterType.Int,
-            name: "param"+idx,
+            name: "param" + idx,
             display_name: "Parameter Name",
             value: 5, min: 0, max: 10
           }
         case ParameterType.Float:
           return {
             type: ParameterType.Float,
-            name: "param"+idx,
+            name: "param" + idx,
             display_name: "Parameter Name",
             value: 5.0, min: 0.0, max: 10.0, step: 0.5
           }
         case ParameterType.String:
           return {
             type: ParameterType.String,
-            name: "param"+idx,
+            name: "param" + idx,
             display_name: "Parameter Name",
-            value: "text", minLen: "3", maxLen: "10"
+            value: "text", minLen: 3, maxLen: 10
           }
         case ParameterType.Bool:
           return {
             type: ParameterType.Bool,
-            name: "param"+idx,
+            name: "param" + idx,
             display_name: "Parameter Name",
             value: false
           }

@@ -25,7 +25,6 @@ const translations = {
             error: {
                 too_small: "Too small (min value: {min})",
                 too_large: "Too large (max value: {max})",
-                not_exact: "Must be a multiple of {val}",
                 too_short: "Too short (min length: {min})",
                 too_long: "Too long (max length: {max})",
             },
@@ -61,6 +60,7 @@ const translations = {
                 too_short: "{name} must be at least {value} characters",
                 too_long: "{name} must be at max {value} characters",
                 ungeneratable: "This template could not be generated!",
+                no_parameters: "Template must have at least one parameter",
             },
         },
         login: {
@@ -107,7 +107,6 @@ const translations = {
             error: {
                 too_small: "Za mało (minimalna wartość: {min})",
                 too_large: "Za dużo (maksymalna wartość: {max})",
-                not_exact: "Musi być wielokrotnością {val}",
                 too_short: "Za krótki (minimalna długość: {min})",
                 too_long: "Za długi (maksymalna długość: {max})",
             },
@@ -143,6 +142,7 @@ const translations = {
                 too_short: "{name} musi mieć przynajmniej {value} znaków",
                 too_long: "{name} może mieć najwyżej {value} znaków",
                 ungeneratable: "Nie udało się wygenerować modelu z danego szablonu!",
+                no_parameters: "Szablon musi mieć przynajmniej jeden parametr",
             },
         },
         login: {
