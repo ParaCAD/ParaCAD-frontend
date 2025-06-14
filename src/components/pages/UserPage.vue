@@ -7,6 +7,7 @@ const {t} = useI18n()
 </script>
 
 <template>
+<!--  TODO: add some more user info / edit options-->
   <UserPageHeader :user_uuid="user_uuid" :username="username"/>
   <SearchResults :templates="templates"/>
 </template>

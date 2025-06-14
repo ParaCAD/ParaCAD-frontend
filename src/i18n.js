@@ -1,5 +1,5 @@
 import {createI18n} from "vue-i18n";
-
+// TODO: translate all error messages
 const translations = {
     en: {
         title: {
@@ -7,12 +7,14 @@ const translations = {
             search: 'Search',
             template: 'Template',
             user: 'User',
+            create_template: 'Create template',
             login: 'Login',
             register: 'Register',
         },
         nav: {
             home: "Home",
             search: "Search",
+            create_template: 'Create template',
         },
         main: {
             content: "Welcome to ParaCAD!",
@@ -20,6 +22,12 @@ const translations = {
         template: {
             created_by: "Created by",
             generate_button: "Generate",
+            error: {
+                too_small: "Too small (min value: {min})",
+                too_large: "Too large (max value: {max})",
+                too_short: "Too short (min length: {min})",
+                too_long: "Too long (max length: {max})",
+            },
         },
         user: {
             users_templates: "Templates created by",
@@ -42,12 +50,26 @@ const translations = {
                 empty: "Nothing here!",
             },
         },
+        create_template: {
+            header: "Create template",
+            template_name: "Template name",
+            template_content: "Template content",
+            template_description: "Template description",
+            create_button: "Create",
+            error: {
+                too_short: "{name} must be at least {value} characters",
+                too_long: "{name} must be at max {value} characters",
+                ungeneratable: "This template could not be generated!",
+                no_parameters: "Template must have at least one parameter",
+            },
+        },
         login: {
             login: "Log in to ParaCAD",
             username: "Username",
             password: "Password",
             login_button: "Log in",
             no_account_register: "I don't have an account",
+            logged_in_as: "Logged in as",
         },
         register: {
             register: "Register",
@@ -67,12 +89,14 @@ const translations = {
             search: 'Wyszukaj',
             template: 'Szablon',
             user: 'Użytkownik',
+            create_template: 'Dodawanie szablonu',
             login: 'Logowanie',
             register: 'Rejestracja',
         },
         nav: {
             home: "Strona główna",
             search: "Wyszukaj",
+            create_template: 'Dodawanie szablonu',
         },
         main: {
             content: "Witamy w aplikacji ParaCAD!",
@@ -80,6 +104,12 @@ const translations = {
         template: {
             created_by: "Stworzony przez",
             generate_button: "Generuj",
+            error: {
+                too_small: "Za mało (minimalna wartość: {min})",
+                too_large: "Za dużo (maksymalna wartość: {max})",
+                too_short: "Za krótki (minimalna długość: {min})",
+                too_long: "Za długi (maksymalna długość: {max})",
+            },
         },
         user: {
             users_templates: "Szablony użytkownika",
@@ -102,12 +132,26 @@ const translations = {
                 empty: "Nic tu nie ma!",
             },
         },
+        create_template: {
+            header: "Tworzenie szablonu",
+            template_name: "Nazwa szablonu",
+            template_content: "Treść szablonu",
+            template_description: "Opis szablonu",
+            create_button: "Stwórz",
+            error: {
+                too_short: "{name} musi mieć przynajmniej {value} znaków",
+                too_long: "{name} może mieć najwyżej {value} znaków",
+                ungeneratable: "Nie udało się wygenerować modelu z danego szablonu!",
+                no_parameters: "Szablon musi mieć przynajmniej jeden parametr",
+            },
+        },
         login: {
             login: "Zaloguj się do ParaCAD",
             username: "Nazwa użytkownika",
             password: "Hasło",
             login_button: "Zaloguj się",
             no_account_register: "Nie mam konta",
+            logged_in_as: "Witaj",
         },
         register: {
             register: "Zarejestruj się",

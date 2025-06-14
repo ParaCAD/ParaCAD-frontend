@@ -10,12 +10,12 @@ const {t} = useI18n()
   <nav class="navbar navbar-expand-lg">
     <div class="container-fluid">
       <router-link class="navbar-brand" to="/">
-        <img src="@/assets/logo.png" alt="Bootstrap" width="30" height="30">
+        <img src="@/assets/logo.svg" alt="Bootstrap" width="40" height="40">
       </router-link>
-      <!--      TODO: replace with img-->
       <div class="navbar-nav position-absolute top-50 start-50 translate-middle">
         <router-link class="nav-link" to="/">{{ t("nav.home") }}</router-link>
         <router-link class="nav-link" to="/search">{{ t("nav.search") }}</router-link>
+        <router-link v-if="!is_guest" class="nav-link" to="/createTemplate">{{ t("nav.create_template") }}</router-link>
       </div>
     </div>
     <UserWidget/>
@@ -24,12 +24,24 @@ const {t} = useI18n()
 
 <script >
 import UserWidget from "@/components/atoms/UserWidget.vue";
-import {defineComponent} from "vue";
+import {computed, defineComponent} from "vue";
+import {jwtDecode} from "jwt-decode";
 
 export default defineComponent({
   name: "NavBar",
   props: {},
   methods: {},
+  mounted() {
+  },
+  data() {
+    const is_guest = computed(() => {
+      return !localStorage.getItem('token')
+    })
+    return {
+      username: '',
+      is_guest: is_guest
+    }
+  },
   components: {UserWidget}
 });
 </script>

@@ -1,5 +1,6 @@
 <script setup>
 import {useI18n} from 'vue-i18n'
+import ModelDescription from "@/components/atoms/ModelDescription.vue";
 
 const {t} = useI18n()
 </script>
@@ -15,8 +16,9 @@ const {t} = useI18n()
       {{ template.owner_name }})
     </a>
   </h2>
+  <ModelDescription :description="template.template_description"/>
   <ModelForm :parameters="template.template_parameters"/>
-  <button class="btn btn-primary" @click="generate">{{ t("template.generate_button") }}</button>
+  <button :disabled="is_error" class="btn btn-primary" @click="generate">{{ t("template.generate_button") }}</button>
   </div>
 </template>
 
@@ -40,6 +42,8 @@ export default defineComponent({
         owner_name: ''
       },
       values: {},
+      errors: {},
+      is_error: false,
     };
   },
   setup(props) {
@@ -69,6 +73,13 @@ export default defineComponent({
   mounted() {
     this.emitter.on('update:field', (data) => {
       this.values[data.name] = data.value;
+    });
+    this.emitter.on('update:error', (data) => {
+      this.errors[data.name] = data.value;
+      this.is_error = null;
+      if (!Object.values(this.errors).every(err => err === "")){
+        this.is_error = true;
+      }
     });
   },
   methods: {
