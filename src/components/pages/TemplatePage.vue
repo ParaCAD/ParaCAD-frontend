@@ -7,30 +7,52 @@ const {t} = useI18n()
 
 <template>
   <div class="container w-50">
-  <img class="img-fluid rounded w-50" :src="template.template_preview" alt="Generated model preview"/>
-  <h2 class="mt-2">
-    {{ template.template_name }}
+    <img class="img-fluid rounded w-50" :src="template.template_preview" alt="Generated model preview"/>
+    <h2 class="mt-2">
+      {{ template.template_name }}
+      <br/>
+      ({{ t("template.created_by") }}
+      <a :href="/user/+template.owner_uuid">
+        {{ template.owner_name }}
+      </a>)
+    </h2>
+    <ModelDescription :description="template.template_description"/>
+    <ModelForm :parameters="template.template_parameters"/>
+    <button :disabled="is_error" class="btn btn-primary" @click="generate">{{ t("template.generate_button") }}</button>
     <br/>
-    ({{ t("template.created_by") }}
-    <a :href="/user/+template.owner_uuid">
-      {{ template.owner_name }})
-    </a>
-  </h2>
-  <ModelDescription :description="template.template_description"/>
-  <ModelForm :parameters="template.template_parameters"/>
-  <button :disabled="is_error" class="btn btn-primary" @click="generate">{{ t("template.generate_button") }}</button>
+    <button v-if="is_owner" class="btn btn-danger mt-2" @click="deleteTemplate">{{
+        t("template.delete_button")
+      }}
+    </button>
   </div>
 </template>
 
 <script>
-import {defineComponent} from 'vue';
+import {computed, defineComponent} from 'vue';
 import axios from 'axios';
 import ModelForm from '@/components/organisms/ModelForm.vue';
+import {jwtDecode} from "jwt-decode";
 
 export default defineComponent({
   name: "TemplatePage",
   props: {},
   data() {
+    let is_owner = computed(() => {
+      const token = localStorage.getItem("token");
+      if (token) {
+        const decodedToken = jwtDecode(token);
+        if (decodedToken.exp > Date.now()) {
+          localStorage.removeItem('token');
+        } else {
+          if (this.template) {
+            return  this.template.owner_uuid === decodedToken.sub
+          }
+        }
+      }
+      return false;
+    })
+    console.log(is_owner)
+
     return {
       template: {
         template_uuid: '',
@@ -41,6 +63,7 @@ export default defineComponent({
         owner_uuid: '',
         owner_name: ''
       },
+      is_owner: is_owner,
       values: {},
       errors: {},
       is_error: false,
@@ -77,7 +100,7 @@ export default defineComponent({
     this.emitter.on('update:error', (data) => {
       this.errors[data.name] = data.value;
       this.is_error = null;
-      if (!Object.values(this.errors).every(err => err === "")){
+      if (!Object.values(this.errors).every(err => err === "")) {
         this.is_error = true;
       }
     });
@@ -122,6 +145,41 @@ export default defineComponent({
           window.URL.revokeObjectURL(url);
         }, 0);
       }
+    },
+    deleteTemplate() {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        alert("Unauthorized!");
+        return
+      }
+
+      axios.delete(BACKEND_URL + '/template/' + this.template.template_uuid, {
+        headers: {"Authorization": token}
+      })
+          .then(() => {
+            this.$router.push('/').then(() => {
+              window.location.reload();
+            });
+          })
+          .catch(error => {
+            if (error.response.status === 403) {
+              alert("Nie dla psa kiełbasa!");
+              return;
+            }
+            if (error.response.status === 401) {
+              localStorage.removeItem("token");
+              alert("Logged out!");
+              this.$router.push('/').then(() => {
+                window.location.reload();
+              });
+              return;
+            }
+            if (error.response.status === 500) {
+              alert("Internal Server Error");
+              return;
+            }
+            console.error(error);
+          })
     },
   },
   components: {ModelForm}

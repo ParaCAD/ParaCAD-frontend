@@ -22,6 +22,7 @@ const translations = {
         template: {
             created_by: "Created by",
             generate_button: "Generate",
+            delete_button: "Delete",
             error: {
                 too_small: "Too small (min value: {min})",
                 too_large: "Too large (max value: {max})",
@@ -104,6 +105,7 @@ const translations = {
         template: {
             created_by: "Stworzony przez",
             generate_button: "Generuj",
+            delete_button: "Usuń",
             error: {
                 too_small: "Za mało (minimalna wartość: {min})",
                 too_large: "Za dużo (maksymalna wartość: {max})",
