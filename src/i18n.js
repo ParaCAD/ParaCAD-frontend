@@ -34,6 +34,10 @@ const translations = {
             users_templates: "Templates created by",
             your_templates: "Your templates",
             user_does_not_exist: "User does not exist!",
+            template_count: "Templates",
+            last_login: "Last login",
+            button_edit: "Edit",
+            button_delete: "Delete",
         },
         search: {
             button: "Search",
@@ -117,6 +121,10 @@ const translations = {
             users_templates: "Szablony użytkownika",
             your_templates: "Twoje szablony",
             user_does_not_exist: "Użytkownik nie istnieje!",
+            template_count: "Szablony",
+            last_login: "Ostatnio aktywny",
+            button_edit: "Edytuj",
+            button_delete: "Usuń",
         },
         search: {
             button: "Szukaj",

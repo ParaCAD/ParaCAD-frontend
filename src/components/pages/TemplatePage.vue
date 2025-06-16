@@ -108,7 +108,6 @@ export default defineComponent({
   methods: {
     generate() {
       let request = {"parameters": []}
-      // TODO: validate
       for (let [key, value] of Object.entries(this.values)) {
         request.parameters.push({
           "parameter_name": key,

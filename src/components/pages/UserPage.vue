@@ -7,9 +7,27 @@ const {t} = useI18n()
 </script>
 
 <template>
-<!--  TODO: add some more user info / edit options-->
-  <UserPageHeader :user_uuid="user_uuid" :username="username"/>
-  <SearchResults :templates="templates"/>
+  <!--  TODO: add some more user info / edit options-->
+  <div class="container w-50">
+    <div class="row">
+      <div class="col-3">
+        <div class="card">
+          <div class="card-body">
+            <h5 class="card-title">{{ username }}</h5>
+            <h6 class="card-subtitle mb-2 text-body-secondary">{{ t('user.template_count') }}: <br/> {{ template_count }}</h6>
+            <h6 class="card-subtitle mb-2 text-body-secondary">{{ t('user.last_login') }}: <br/> {{ last_login_time }}</h6>
+            <p class="card-text">TODO: About me <br/> TODO: Edit about me</p>
+            <button class="btn btn-success m-2">{{ t('user.button_edit') }}</button>
+            <button class="btn btn-danger">{{ t('user.button_delete') }}</button>
+          </div>
+        </div>
+      </div>
+      <div class="col-9">
+        <UserPageHeader :user_uuid="user_uuid" :username="username"/>
+        <SearchResults :templates="templates"/>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -28,7 +46,9 @@ export default defineComponent({
     return {
       user_uuid: "",
       username: "",
-      templates: []
+      templates: [],
+      template_count: 0,
+      last_login_time: "",
     };
   },
   setup(props) {
@@ -47,6 +67,11 @@ export default defineComponent({
         .then(response => {
           this.username = response.data.user_name;
           this.user_uuid = response.data.user_uuid;
+          this.template_count = response.data.template_count;
+          this.last_login_time = "Never";
+          if (response.data.last_login_time !== null) {
+            this.last_login_time = response.data.last_login_time;
+          }
           if (response.data.templates === null) {
             this.templates = [];
             return;

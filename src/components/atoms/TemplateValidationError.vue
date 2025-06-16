@@ -19,7 +19,7 @@ export default defineComponent({
 
 <style>
 .template-validation-error {
-  height: 30px;
+  height: 50px;
   color: red;
 }
 
