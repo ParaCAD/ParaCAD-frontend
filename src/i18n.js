@@ -36,7 +36,7 @@ const translations = {
             user_does_not_exist: "User does not exist!",
             template_count: "Templates",
             last_login: "Last login",
-            button_edit: "Edit",
+            button_edit: "Save",
             button_delete: "Delete",
         },
         search: {
@@ -123,7 +123,7 @@ const translations = {
             user_does_not_exist: "Użytkownik nie istnieje!",
             template_count: "Szablony",
             last_login: "Ostatnio aktywny",
-            button_edit: "Edytuj",
+            button_edit: "Zapisz",
             button_delete: "Usuń",
         },
         search: {
