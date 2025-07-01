@@ -21,6 +21,7 @@ const translations = {
         },
         template: {
             created_by: "Created by",
+            deleted: "Deleted user",
             generate_button: "Generate",
             delete_button: "Delete",
             error: {
@@ -108,6 +109,7 @@ const translations = {
         },
         template: {
             created_by: "Stworzony przez",
+            deleted: "Użytkownik usunięty",
             generate_button: "Generuj",
             delete_button: "Usuń",
             error: {

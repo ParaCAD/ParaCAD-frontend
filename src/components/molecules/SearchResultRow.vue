@@ -10,7 +10,7 @@ const {t} = useI18n()
       <img class="card-img-top" :src="'http://localhost:8081/image/'+template.preview" alt="Generated model preview"/>
       <div class="card-body">
         <h5 class="card-title">{{ template.name }}</h5>
-        {{ t("search.results.by_author") }} {{ template.owner_name }} ({{ t("search.results.created") }} {{ template.created }})
+        {{ t("search.results.by_author") }} {{ owner_name }} ({{ t("search.results.created") }} {{ template.created }})
       </div>
     </a>
   </div>
@@ -18,6 +18,9 @@ const {t} = useI18n()
 
 <script>
 import {defineComponent} from 'vue';
+import {i18n} from "@/i18n";
+
+const {t} = i18n.global
 
 export default defineComponent({
   name: "SearchResultRow",
@@ -28,6 +31,12 @@ export default defineComponent({
     }
   },
   computed: {
+    owner_name() {
+      if (this.template.owner_name) {
+        return this.template.owner_name
+      }
+      return t("template.deleted")
+    },
     templateURL() {
       return `/template/${this.template.uuid}`
     },
