@@ -14,11 +14,12 @@ const {t} = useI18n()
         <div class="card">
           <div class="card-body">
             <h5 class="card-title">{{ username }}</h5>
-            <h6 class="card-subtitle mb-2 text-body-secondary">{{ t('user.template_count') }}: <br/> {{ template_count }}</h6>
-            <h6 class="card-subtitle mb-2 text-body-secondary">{{ t('user.last_login') }}: <br/> {{ last_login_time }}</h6>
-            <p class="card-text">TODO: About me <br/> TODO: Edit about me</p>
-            <button class="btn btn-success m-2">{{ t('user.button_edit') }}</button>
-            <button class="btn btn-danger">{{ t('user.button_delete') }}</button>
+            <h6 class="card-subtitle mb-2 text-body-secondary">{{ t('user.template_count') }}: <br/> {{
+                template_count
+              }}</h6>
+            <h6 class="card-subtitle mb-2 text-body-secondary">{{ t('user.last_login') }}: <br/> {{ last_login_time }}
+            </h6>
+            <button class="btn btn-danger" @click="delete_user()">{{ t('user.button_delete') }}</button>
           </div>
         </div>
       </div>
@@ -35,6 +36,7 @@ import {computed, defineComponent} from 'vue';
 
 import axios from 'axios';
 import {i18n} from "@/i18n";
+import {jwtDecode} from "jwt-decode";
 
 const {t} = i18n.global
 
@@ -85,7 +87,47 @@ export default defineComponent({
           }
           console.error(error);
         })
-    console.log(this.templates)
+  },
+  methods: {
+    delete_user() {
+      const token = localStorage.getItem("token");
+      if (!token) {
+        alert("Unauthorized!");
+        this.$router.push('/').then(() => {
+          window.location.reload();
+        });
+      }
+      const decodedToken = jwtDecode(token);
+
+      axios.delete(BACKEND_URL + '/user/' + decodedToken.sub, {
+        headers: {"Authorization": token}
+      })
+          .then(response => {
+            localStorage.removeItem("token");
+            this.$router.push('/').then(() => {
+              window.location.reload();
+            });
+          })
+          .catch(error => {
+            if (error.response.status === 400) {
+              alert(error.response.data);
+              return;
+            }
+            if (error.response.status === 401) {
+              localStorage.removeItem("token");
+              alert("Logged out!");
+              this.$router.push('/').then(() => {
+                window.location.reload();
+              });
+              return;
+            }
+            if (error.response.status === 500) {
+              alert("Internal Server Error");
+              return;
+            }
+            console.error(error);
+          })
+    }
   },
   components: {}
 });
@@ -93,4 +135,9 @@ export default defineComponent({
 </script>
 
 <style>
+.description {
+  height: 150px;
+  max-height: 400px;
+  min-height: 100px;
+}
 </style>

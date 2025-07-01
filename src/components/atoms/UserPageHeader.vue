@@ -6,7 +6,7 @@ const {t} = useI18n()
 
 <template>
   <div v-if="!is_current_user">
-    <h2>{{ t("user.users_templates") }} {{ this.username }}:</h2>
+    <h2>{{ t("user.users_templates") }} {{ username }}:</h2>
   </div>
   <div v-else>
     <h2>{{ t("user.your_templates") }}:</h2>

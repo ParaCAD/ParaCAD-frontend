@@ -21,6 +21,7 @@ const translations = {
         },
         template: {
             created_by: "Created by",
+            deleted: "Deleted user",
             generate_button: "Generate",
             delete_button: "Delete",
             error: {
@@ -36,7 +37,7 @@ const translations = {
             user_does_not_exist: "User does not exist!",
             template_count: "Templates",
             last_login: "Last login",
-            button_edit: "Edit",
+            button_edit: "Save",
             button_delete: "Delete",
         },
         search: {
@@ -108,6 +109,7 @@ const translations = {
         },
         template: {
             created_by: "Stworzony przez",
+            deleted: "Użytkownik usunięty",
             generate_button: "Generuj",
             delete_button: "Usuń",
             error: {
@@ -123,7 +125,7 @@ const translations = {
             user_does_not_exist: "Użytkownik nie istnieje!",
             template_count: "Szablony",
             last_login: "Ostatnio aktywny",
-            button_edit: "Edytuj",
+            button_edit: "Zapisz",
             button_delete: "Usuń",
         },
         search: {

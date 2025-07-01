@@ -12,9 +12,10 @@ const {t} = useI18n()
       {{ template.template_name }}
       <br/>
       ({{ t("template.created_by") }}
-      <a :href="/user/+template.owner_uuid">
+      <a v-if="!deleted_user" :href="/user/+template.owner_uuid">
         {{ template.owner_name }}
-      </a>)
+      </a>
+      <span v-else>{{ t("template.deleted") }}</span>)
     </h2>
     <ModelDescription :description="template.template_description"/>
     <ModelForm :parameters="template.template_parameters"/>
@@ -180,6 +181,11 @@ export default defineComponent({
             console.error(error);
           })
     },
+  },
+  computed: {
+    deleted_user() {
+      return !this.template.owner_uuid;
+    }
   },
   components: {ModelForm}
 });
