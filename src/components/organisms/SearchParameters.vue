@@ -12,8 +12,11 @@ const {t} = useI18n()
       </div>
       <div class="col-2">
         <div class="form-check form-switch">
-          <input id="search_descriptions" type="checkbox" class="form-check-input" role="switch" v-model="search_descriptions"/>
-          <label for="search_descriptions" class="form-check-label fs-5">{{ t('search.parameters.search_description') }}</label>
+          <input id="search_descriptions" type="checkbox" class="form-check-input" role="switch"
+                 v-model="search_descriptions"/>
+          <label for="search_descriptions" class="form-check-label fs-5">{{
+              t('search.parameters.search_description')
+            }}</label>
         </div>
       </div>
       <div class="col-2">
@@ -23,7 +26,8 @@ const {t} = useI18n()
         </select>
       </div>
       <div class="col-2">
-        <button id="search-button" class="btn btn-secondary w-75" @click="search"><i class="fa fa-search"></i> Search</button>
+        <button id="search-button" class="btn btn-secondary w-75" @click="search"><i class="fa fa-search"></i> Search
+        </button>
       </div>
     </div>
   </div>

@@ -7,7 +7,8 @@ const {t} = useI18n()
 
 <template>
   <div class="col-3">
-    {{ t('create_template.template_content') }}
+    {{ t('create_template.template_content') }} <br/>
+    {{ t('create_template.template_content_disclaimer') }}
   </div>
   <div class="col-9">
     <textarea class="template_content_textarea" v-model="template_content" @change="onUpdate"></textarea>
@@ -36,13 +37,19 @@ export default defineComponent({
   methods: {
     onUpdate() {
       this.validation_error = ""
-      if (this.template_content.length < 5){
-        this.validation_error = t('create_template.error.too_short',{name:t('create_template.template_content'),value:5})
+      if (this.template_content.length < 5) {
+        this.validation_error = t('create_template.error.too_short', {
+          name: t('create_template.template_content'),
+          value: 5
+        })
       }
-      if (this.template_content.length > 10000){
-        this.validation_error = t('create_template.error.too_long',{name:t('create_template.template_content'),value:10000})
+      if (this.template_content.length > 10000) {
+        this.validation_error = t('create_template.error.too_long', {
+          name: t('create_template.template_content'),
+          value: 10000
+        })
       }
-      if (this.validation_error !== ""){
+      if (this.validation_error !== "") {
         this.emitter.emit("update:error", {name: "template_content", value: this.validation_error});
         return;
       }
@@ -54,7 +61,7 @@ export default defineComponent({
 </script>
 
 <style>
-.template_content_textarea{
+.template_content_textarea {
   overflow: scroll;
   white-space: nowrap;
   height: 150px;

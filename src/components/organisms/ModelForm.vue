@@ -1,6 +1,6 @@
 <template>
   <div class="container w-50 ModelForm mt-2 mb-2">
-    <div v-for="parameter in parameters"  class="row p-1 align-items-center">
+    <div v-for="parameter in parameters" class="row p-1 align-items-center">
       <ParameterInputField :key="parameter.parameter_name" :parameterInput="parameter"/>
     </div>
   </div>

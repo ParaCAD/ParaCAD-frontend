@@ -22,7 +22,7 @@ const {t} = useI18n()
   </nav>
 </template>
 
-<script >
+<script>
 import UserWidget from "@/components/atoms/UserWidget.vue";
 import {computed, defineComponent} from "vue";
 import {jwtDecode} from "jwt-decode";

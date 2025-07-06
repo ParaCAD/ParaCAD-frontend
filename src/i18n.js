@@ -60,8 +60,15 @@ const translations = {
             header: "Create template",
             template_name: "Template name",
             template_content: "Template content",
+            template_content_disclaimer: "(we suggest writing the template in official OpenSCAD IDE and pasting finished code here)",
             template_description: "Template description",
             create_button: "Create",
+            parameters: {
+                integer: "Add integer",
+                float: "Add float",
+                string: "Add string",
+                bool: "Add bool"
+            },
             error: {
                 too_short: "{name} must be at least {value} characters",
                 too_long: "{name} must be at max {value} characters",
@@ -148,8 +155,15 @@ const translations = {
             header: "Tworzenie szablonu",
             template_name: "Nazwa szablonu",
             template_content: "Treść szablonu",
+            template_content_disclaimer: "(zalecamy stworzenie szablonu w oficjalnym IDE OpenSCAD i wklejenie tu gotowego kodu)",
             template_description: "Opis szablonu",
             create_button: "Stwórz",
+            parameters: {
+                integer: "Dodaj liczbę całkowitą",
+                float: "Dodaj liczbę dziesiętną",
+                string: "Dodaj tekst",
+                bool: "Dodaj wartość logiczną"
+            },
             error: {
                 too_short: "{name} musi mieć przynajmniej {value} znaków",
                 too_long: "{name} może mieć najwyżej {value} znaków",

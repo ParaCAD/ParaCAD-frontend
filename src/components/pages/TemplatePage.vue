@@ -46,7 +46,7 @@ export default defineComponent({
           localStorage.removeItem('token');
         } else {
           if (this.template) {
-            return  this.template.owner_uuid === decodedToken.sub
+            return this.template.owner_uuid === decodedToken.sub
           }
         }
       }

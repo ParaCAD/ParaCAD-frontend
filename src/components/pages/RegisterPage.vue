@@ -45,29 +45,29 @@ export default defineComponent({
   methods: {
     register() {
       const request = {}
-      if (!this.user_data.username){
-        alert(t('register.fill_field')+" "+t('register.username'));
+      if (!this.user_data.username) {
+        alert(t('register.fill_field') + " " + t('register.username'));
         return;
       }
       request.username = this.user_data.username;
 
-      if (!this.user_data.email){
-        alert(t('register.fill_field')+" "+t('register.email'));
+      if (!this.user_data.email) {
+        alert(t('register.fill_field') + " " + t('register.email'));
         return;
       }
       request.email = this.user_data.email;
 
-      if (!this.user_data.password){
-        alert(t('register.fill_field')+" "+t('register.password'));
+      if (!this.user_data.password) {
+        alert(t('register.fill_field') + " " + t('register.password'));
         return;
       }
       request.password = this.user_data.password;
 
-      if (!this.user_data.repeat_password){
-        alert(t('register.fill_field')+" "+t('register.repeat_password'));
+      if (!this.user_data.repeat_password) {
+        alert(t('register.fill_field') + " " + t('register.repeat_password'));
         return;
       }
-      if (this.user_data.password !== this.user_data.repeat_password){
+      if (this.user_data.password !== this.user_data.repeat_password) {
         alert(t('register.passwords_not_match'));
         return;
       }

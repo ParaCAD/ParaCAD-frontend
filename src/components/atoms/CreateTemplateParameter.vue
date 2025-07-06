@@ -39,9 +39,9 @@ import CreateTemplateValidationError from "@/components/atoms/CreateTemplateVali
         Val:<input class="param_field_string" type="text" step="0.0001" v-model="parameter.value"
                    @change="updateParameter" required/>
         MinLen:<input class="param_field_string" type="number" step="1" v-model="parameter.minLen"
-                   @change="updateParameter" required/>
+                      @change="updateParameter" required/>
         MaxLen:<input class="param_field_string" type="number" step="1" v-model="parameter.maxLen"
-                   @change="updateParameter" required/>
+                      @change="updateParameter" required/>
       </div>
       <div v-else-if="parameter.type===ParameterType.Bool">
         Val:<input class="param_field_bool" type="checkbox" v-model="parameter.value"
@@ -183,7 +183,7 @@ export default defineComponent({
   width: 15%;
 }
 
-.param_field_string{
+.param_field_string {
   width: 20%;
 }
 </style>

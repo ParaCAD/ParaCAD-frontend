@@ -10,7 +10,8 @@ const {t} = useI18n()
     {{ t('create_template.template_description') }}
   </div>
   <div class="col-9">
-    <textarea maxlength="1000" class="template_description_textarea" v-model="template_description" @change="onUpdate"></textarea>
+    <textarea maxlength="1000" class="template_description_textarea" v-model="template_description"
+              @change="onUpdate"></textarea>
   </div>
 
   <CreateTemplateValidationError :err="validation_error"/>
@@ -36,13 +37,19 @@ export default defineComponent({
   methods: {
     onUpdate() {
       this.validation_error = ""
-      if (this.template_description.length < 10){
-        this.validation_error = t('create_template.error.too_short',{name:t('create_template.template_description'),value:10})
+      if (this.template_description.length < 10) {
+        this.validation_error = t('create_template.error.too_short', {
+          name: t('create_template.template_description'),
+          value: 10
+        })
       }
-      if (this.template_description.length > 1000){
-        this.validation_error = t('create_template.error.too_long',{name:t('create_template.template_description'),value:1000})
+      if (this.template_description.length > 1000) {
+        this.validation_error = t('create_template.error.too_long', {
+          name: t('create_template.template_description'),
+          value: 1000
+        })
       }
-      if (this.validation_error !== ""){
+      if (this.validation_error !== "") {
         this.emitter.emit("update:error", {name: "template_description", value: this.validation_error});
         return;
       }
@@ -54,7 +61,7 @@ export default defineComponent({
 </script>
 
 <style>
-.template_description_textarea{
+.template_description_textarea {
   overflow: scroll;
   white-space: nowrap;
   height: 150px;

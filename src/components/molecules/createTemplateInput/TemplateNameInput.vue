@@ -36,13 +36,19 @@ export default defineComponent({
   methods: {
     onUpdate() {
       this.validation_error = ""
-      if (this.template_name.length < 5){
-        this.validation_error = t('create_template.error.too_short',{name:t('create_template.template_name'),value:5})
+      if (this.template_name.length < 5) {
+        this.validation_error = t('create_template.error.too_short', {
+          name: t('create_template.template_name'),
+          value: 5
+        })
       }
-      if (this.template_name.length > 100){
-        this.validation_error = t('create_template.error.too_long',{name:t('create_template.template_name'),value:100})
+      if (this.template_name.length > 100) {
+        this.validation_error = t('create_template.error.too_long', {
+          name: t('create_template.template_name'),
+          value: 100
+        })
       }
-      if (this.validation_error !== ""){
+      if (this.validation_error !== "") {
         this.emitter.emit("update:error", {name: "template_name", value: this.validation_error});
         return;
       }
@@ -54,7 +60,7 @@ export default defineComponent({
 </script>
 
 <style>
-.template_name_input_text{
+.template_name_input_text {
   width: 100%;
 }
 </style>

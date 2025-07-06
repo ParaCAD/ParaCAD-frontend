@@ -76,7 +76,7 @@ export default defineComponent({
       let request = {}
       this.validation_error = "";
 
-      if (this.template.template_parameters.length === 0){
+      if (this.template.template_parameters.length === 0) {
         this.validation_error = t('create_template.error.no_parameters');
         return;
       }

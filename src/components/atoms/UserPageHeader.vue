@@ -20,7 +20,7 @@ import {jwtDecode} from "jwt-decode";
 export default defineComponent({
   name: 'UserPageHeader',
   props: {
-    user_uuid:{
+    user_uuid: {
       type: String,
       required: true,
     },
@@ -47,7 +47,6 @@ export default defineComponent({
       is_current_user: is_current_user
     }
   },
-  methods: {
-  }
+  methods: {}
 });
 </script>

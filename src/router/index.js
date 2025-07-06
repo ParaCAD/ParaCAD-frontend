@@ -39,7 +39,7 @@ const routes = [
         path: '/createTemplate',
         name: 'createTemplatePage',
         component: CreateTemplatePage,
-        meta: {title: t('title.create_template') + ' - ParaCAD',  requiresLoggedIn: true}
+        meta: {title: t('title.create_template') + ' - ParaCAD', requiresLoggedIn: true}
     },
     {
         path: '/login',
